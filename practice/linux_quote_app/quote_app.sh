@@ -10,7 +10,7 @@ psql_password=$6
 data_out=$(curl --request GET \
 	--url 'https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol=MSFT&datatype=json' \
 	--header 'X-RapidAPI-Host: alpha-vantage.p.rapidapi.com' \
-	--header 'X-RapidAPI-Key: a5201af874msh748f3eaddf52167p1e3d1cjsn0c94890c25b4' | jq)
+	--header 'X-RapidAPI-Key: REMOVEDFORSECURITYREASONS' | jq)
 
 if [ "$#" -lt 7 ]; then
      echo "Illegal number of parameters"
