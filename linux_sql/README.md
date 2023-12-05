@@ -67,7 +67,27 @@ cat /tmp/host_usage.log
 ```
 
 ## 6. DataBase Modeling
+This project contains two tables for the database, host_usage and host_info, with the following schema
+`host_info.sh`:
++ `id`: a number assigned to each node, is a primary key in the table and auto incremented by Postgresql
++ `hostname`: The full name of the node pc
++ `cpu_number`: The number of cpu cores in the node
++ `cpu_architecture`: The cpu architecture of the node
++ `cpu_model`: The name of the model of cpu in the node
++ `cpu_mhz`: The clock speed of the cpu in MHz
++ `L2_cache`: The size of the L2 cache on the connecting node
++ `total_mem`: The total memory of the node device
++ `timestamp`: A timestamp of when the data was recorded in UTC format
 
+`host_usage.sh`:
++ `timestamp`: A timestamp of when the data was recorded in UTC format
++ `host_id`: The id value of the host, the primary key of host_info.sh, assigned on first connecting with the node when host_info is recorded
++ `memory_free`: The currently free memory, in MB
++ `cpu_idle`: The percentage of the cpu resources in idle state
++ `cpu_kernel`: The percentage of processing memory currently dedicated to kernel tasks
++ `disk_io`: The current amount of reads and writes in progress
++ `disk_available`: The root directory available disk, in MB
+  
 ## 7. Test
 
 ## 8. Deployment
