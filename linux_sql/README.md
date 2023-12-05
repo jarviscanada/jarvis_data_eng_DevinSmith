@@ -1,12 +1,12 @@
 # Linux Cluster Monitoring Agent
-## Introduction
+## 1. Introduction
 The Linux Cluster Monitoring Agent is a tool that allows users to monitor nodes 
 in a Linux cluster by tracking the node hardware as well as the usage information from the different nodes. 
 This is done by provisioning and running a PostgreSQL instance within a Docker container and automated with the bash scripts
 host_info.sh and host_usage.sh, creating tables then populating them. host_usage.sh will poll the connecting node every 60 seconds to check out resource usage. This is achieved by setting up a crontab job to run host_usage.sh every minute. When combined, this app will poll its users machines for data in order to see resource usage of provisioned virtual machine systems
 
-## 1. Quickstart
-From the command line, run the following commands one at a time
+## 2. Quickstart
+From the command line, run the following commands one at a time to quickly start the app
 ```
 ./linux_sql/scripts/psql_docker.sh start db_password
 psql -h psql_host -U psql_user -W -f linux_sql/sql/ddl.sql
@@ -20,7 +20,11 @@ crontab -ls
 cat /tmp/host_usage.log
 ```
 
-## 4. Scripts
+## 3. Implementation
+
+## 4. Architecture
+
+## 5. Scripts
 ### 1. Database and Table Initialization
 Before running the bash agent, the PosgreSQL instance is allocated by creating and starting up a docker container, creating the psql instance and then creating the host_info and host_usage tables.
 ```
@@ -61,4 +65,17 @@ crontab -ls
 # Verify that the script is running as intended by checking the log file
 cat /tmp/host_usage.log
 ```
+
+## 6. DataBase Modeling
+
+## 7. Test
+
+## 8. Deployment
+
+
+## 9. Improvements
+Some impovements I would suggest for this project are:
+  -handle hardware updates
+  -color encoding for the different hardware specs to differentiate nodes
+  -automate the first running of the host_info.sh bash script
 
