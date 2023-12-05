@@ -89,9 +89,10 @@ This project contains two tables for the database, host_usage and host_info, wit
 + `disk_available`: The root directory available disk, in MB
   
 ## 7. Test
+Testing this code was in two parts, the bash scripts were tested while coding through the use of `echo` statements on the bash scripts. These are further confirmed using docker and psql commands to check that the docker instance is running, and that the tables are generated. host_info.sh is manually called to populate the host_info table, as it is needed to run host_usage.sh. Afterwards, with crontab running the host_usage.log can be checked with cat to confirm the appropriate data is being generated, and you can check the host_usage table to see that it is being populated.
 
 ## 8. Deployment
-
+The code is deployable by downloading the Github repository, then following the quickstart commands, which will obtain and implement a docker container with a psql instance generated within. Then it
 
 ## 9. Improvements
 Some impovements I would suggest for this project are:
