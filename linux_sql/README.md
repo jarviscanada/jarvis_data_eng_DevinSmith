@@ -49,7 +49,7 @@ cat /tmp/host_usage.log
 
 ## 3. Implementation
 These are the steps that were taken in implementing this project
-### 1.The first step in implementing the project is establishing a github repo for code management
+### 1. The first step in implementing the project is establishing a github repo for code management
 Once the repo is established we can make a development branch, and furthermore the appropriate feature branches.
 ### 2. The second step is getting a basic Docker undestanding a creating a container
 The containerization allows us to work with the psql in an enclosed environment
@@ -90,7 +90,7 @@ This project contains two tables for the database, host_usage and host_info, wit
 + `disk_io`: The current amount of reads and writes in progress
 + `disk_available`: The root directory available disk, in MB
   
-## 7. Test
+## 7. Testing
 Testing this code was in two parts, the bash scripts were tested while coding through the use of `echo` statements on the bash scripts. These are further confirmed using docker and psql commands to check that the docker instance is running, and that the tables are generated. host_info.sh is manually called to populate the host_info table, as it is needed to run host_usage.sh. Afterwards, with crontab running the host_usage.log can be checked with cat to confirm the appropriate data is being generated, and you can check the host_usage table to see that it is being populated.
 
 ## 8. Deployment
