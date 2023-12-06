@@ -48,8 +48,18 @@ cat /tmp/host_usage.log
 ```
 
 ## 3. Implementation
+These are the steps that were taken in implementing this project
+### 1.The first step in implementing the project is establishing a github repo for code management
+Once the repo is established we can make a development branch, and furthermore the appropriate feature branches.
+### 2. The second step is getting a basic Docker undestanding a creating a container
+The containerization allows us to work with the psql in an enclosed environment
+### 3. The third step is is to initializing a database inside the container and establishing the tables host_info and host usage
+The correct data types for each of the fields in the table allow us to confirm the correct data is being input.
+### 4. The fourth step is setting up the crontab in order to automate running the `host_usage.sh` script
+Setting up a crontab job allows the `host_usage.sh` script can run every minute to continously collect usage data.
 
 ## 4. Architecture
+
 
 ## 5. Scripts
 + `host_info.sh` is run once for every node in the cluster in order to get the hardware configurations of the node and placing that info in the host_info table. This data needs to be in the table to create an id for the node so that host_usage.sh can be run
@@ -88,7 +98,7 @@ The code is deployable by downloading the Github repository, then following the 
 
 ## 9. Improvements
 Some impovements I would suggest for this project are:
-  -handle hardware updates
-  -color encoding for the different hardware specs to differentiate nodes
-  -automate the first running of the host_info.sh bash script
+  + handle hardware updates
+  + color encoding for the different hardware specs to differentiate nodes
+  + automate the first running of the host_info.sh bash script
 
