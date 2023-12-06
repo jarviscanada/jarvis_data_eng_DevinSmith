@@ -59,7 +59,7 @@ The correct data types for each of the fields in the table allow us to confirm t
 Setting up a crontab job allows the `host_usage.sh` script can run every minute to continously collect usage data.
 
 ## 4. Architecture
-![An image showing the architecture of the node network](/linux_sql/assets/ClusterArchitecture.drawio)
+![An image showing the architecture of the node network](/linux_sql/assets/ArchitectureImage.png)
 
 ## 5. Scripts
 + `host_info.sh` is run once for every node in the cluster in order to get the hardware configurations of the node and placing that info in the host_info table. This data needs to be in the table to create an id for the node so that host_usage.sh can be run
