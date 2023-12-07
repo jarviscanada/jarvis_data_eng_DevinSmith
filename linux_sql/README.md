@@ -1,64 +1,103 @@
-# Devin Smith . Jarvis Consulting
+# Linux Cluster Monitoring Agent
+## 1. Introduction
+The Linux Cluster Monitoring Agent is a tool that allows users to monitor nodes 
+in a Linux cluster by tracking the node hardware as well as the usage information from the different nodes. 
+This is done by provisioning and running a PostgreSQL instance within a Docker container and automated with the bash scripts
+host_info.sh and host_usage.sh, creating tables then populating them. host_usage.sh will poll the connecting node every 60 seconds to check out resource usage. This is achieved by setting up a crontab job to run host_usage.sh every minute. When combined, this app will poll its users machines for data in order to see resource usage of provisioned virtual machine systems
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis a orci ac malesuada. Vivamus ligula elit, viverra eu ante porttitor, blandit convallis augue. Aliquam justo justo, mollis at lacus eu, rutrum finibus est. Vestibulum venenatis purus id accumsan pretium. In efficitur magna nec enim laoreet tincidunt. Ut libero metus, scelerisque nec eros vitae, sagittis pellentesque enim. Donec dictum felis volutpat, vehicula magna eu, imperdiet elit. Phasellus ut velit a massa efficitur faucibus. Sed volutpat, lacus sed sagittis luctus, elit.
+## 2. Quickstart
+### 1. Database and Table Initialization
+Before running the bash agent, the PosgreSQL instance is allocated by creating and starting up a docker container, creating the psql instance and then creating the host_info and host_usage tables.
+```
+# From the repository's home directory, allocate and create a psql instance with docker
+./linux_sql/scripts/psql_docker.sh start db_password
+# Do note that you can also use "stop" instead of "start" to stop the instance
 
-## Skills
+# Initialize the database and tables
+psql -h psql_host -U psql_user -W -f linux_sql/sql/ddl.sql
+```
+### 2. host_info.sh Usage
 
-**Proficient:** Java, Linux/Bash, RDBMS/SQL, Agile/Scrum, Git
+This script only needs to be run once per node to insert the node's hardware specifications into the host_info table
+```
+# Insert node hardware specifications into the host_info table
+./linux_sql/scripts/host_info.sh psql_host psql_port db_name psql_user psql_password
+```
+### 3. host_usage.sh Usage
 
-**Competent:** Donec, fermentum, Donec, fermentum, Donec
+This script inserts a snapshot of the node's current resource usage into the host_usage table and can be ran manually
+```
+# Insert a snapshot of the node's resource usage into the host_usage table
+./linux_sql/scripts/host_usage.sh psql_host psql_port db_name psql_user psql_password
+```
+### 4. crontab Setup
 
-**Familiar:** Donec, fermentum, fermentum, fermentum, fermentum
+A crontab job can be created to repeatedly run the host_usage.sh script over a specified interval
+```
+# Run this to edit your current crontab jobs
+crontab -e
 
-## Jarvis Projects
+# Enter the following line in the opened file to set up the job
+* * * * * bash [path]/host_usage.sh psql_host psql_port db_name psql_user psql_password > /tmp/host_usage.log
 
-Project source code: [https://github.com/jarviscanada/jarvis_data_eng_DevinSmith](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith)
+# Verify that the job was successfully created by listing crontab jobs
+crontab -ls
 
+# Verify that the script is running as intended by checking the log file
+cat /tmp/host_usage.log
+```
 
-**Cluster Monitor** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/linux_sql)]: Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.
+## 3. Implementation
+These are the steps that were taken in implementing this project
+### 1. The first step in implementing the project is establishing a github repo for code management
+Once the repo is established we can make a development branch, and furthermore the appropriate feature branches.
+### 2. The second step is getting a basic Docker undestanding a creating a container
+The containerization allows us to work with the psql in an enclosed environment
+### 3. The third step is is to initializing a database inside the container and establishing the tables host_info and host usage
+The correct data types for each of the fields in the table allow us to confirm the correct data is being input.
+### 4. The fourth step is setting up the crontab in order to automate running the `host_usage.sh` script
+Setting up a crontab job allows the `host_usage.sh` script can run every minute to continously collect usage data.
 
-**Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/core_java)]:
-      
-  - Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam.
-  - JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam.
-  - Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam.
+## 4. Architecture
+![An image showing the architecture of the node network](/linux_sql/assets/ArchitectureImage.png)
 
-**Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/springboot)]: Not Started
-
-**Python Data Analytics** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/python_data_anlytics)]: Not Started
-
-**Hadoop** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/hadoop)]: Not Started
-
-**Spark** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/spark)]: Not Started
-
-**Cloud/DevOps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/cloud_devops)]: Not Started
-
-
-## Highlighted Projects
-**Web app for resturant** [[GitHub](https://github.com/jarviscanada/jarvis_profile_builder)]: Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.
-
-**Machine Learning**: Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.
-
-
-## Professional Experiences
-
-**Software Developer, Jarvis (2020-present)**: Donec mattis sed justo et sagittis. Vestibulum lacinia nulla ipsum. Curabitur imperdiet nibh vitae leo lacinia laoreet. Nullam accumsan, lectus ut maximus ultricies, augue justo egestas mi, vel bibendum felis.
-
-**Tutor, XYZ Company (2019)**: Donec mattis sed justo et sagittis. Vestibulum lacinia nulla ipsum. Curabitur imperdiet nibh vitae leo lacinia laoreet. Nullam accumsan, lectus ut maximus ultricies, augue justo egestas mi, vel bibendum felis.
-
-
-## Education
-**XYZ university (2012-2016)**, Bachelor of Applied Sciences, Electrical and Computer Engineering
-- Scholarship
-- Dean's List (2015, 2016): Ut enim ad minim veniam
-- GPA: 3.8/4.0
-
-**XYZ university (2016-2018)**, Master of Engineering, Electrical and Computer Engineering
+## 5. Scripts
++ `host_info.sh` is run once for every node in the cluster in order to get the hardware configurations of the node and placing that info in the host_info table. This data needs to be in the table to create an id for the node so that host_usage.sh can be run
++ `host_usage.sh` is run every 60 seconds, collecting the nodes usage stats of the docker containers environment. It stores the relevent data but needs an id to be entered into the host_usage table, which is generated by the node first running `host_info.sh`
++ `psql_docker.sh` is ran in order to start the Docker PostgreSQL container, starting Docker if necessary. Note the command in the quickstart section, you can also replace it with stop to end the container as well.
++ `ddl.sql` is used to automate the creation of the `host_agent` database and the `host_info` and `host_usage` tables in the sql database
 
 
-## Miscellaneous
-- Udacity Machine Learning (2019)
-- Winner
-- Basketball player
-- Competitive gaming
-- Volunteer, ABC Food bank: Ut enim ad minim veniam
+## 6. DataBase Modeling
+This project contains two tables for the database, host_usage and host_info, with the following schema
+`host_info.sh`:
++ `id`: a number assigned to each node, is a primary key in the table and auto incremented by Postgresql
++ `hostname`: The full name of the node pc
++ `cpu_number`: The number of cpu cores in the node
++ `cpu_architecture`: The cpu architecture of the node
++ `cpu_model`: The name of the model of cpu in the node
++ `cpu_mhz`: The clock speed of the cpu in MHz
++ `L2_cache`: The size of the L2 cache on the connecting node
++ `total_mem`: The total memory of the node device
++ `timestamp`: A timestamp of when the data was recorded in UTC format
+
+`host_usage.sh`:
++ `timestamp`: A timestamp of when the data was recorded in UTC format
++ `host_id`: The id value of the host, the primary key of host_info.sh, assigned on first connecting with the node when host_info is recorded
++ `memory_free`: The currently free memory, in MB
++ `cpu_idle`: The percentage of the cpu resources in idle state
++ `cpu_kernel`: The percentage of processing memory currently dedicated to kernel tasks
++ `disk_io`: The current amount of reads and writes in progress
++ `disk_available`: The root directory available disk, in MB
+  
+## 7. Testing
+Testing this code was in two parts, the bash scripts were tested while coding through the use of `echo` statements on the bash scripts. These are further confirmed using docker and psql commands to check that the docker instance is running, and that the tables are generated. host_info.sh is manually called to populate the host_info table, as it is needed to run host_usage.sh. Afterwards, with crontab running the host_usage.log can be checked with cat to confirm the appropriate data is being generated, and you can check the host_usage table to see that it is being populated.
+
+## 8. Deployment
+The code is deployable by downloading the Github repository, then following the quickstart commands, which will obtain and implement a docker container with a psql instance generated within, and create the relevent tables. Once the `host_info.sh` script is run, and the crontab job is created, it runs and collects data autonomously.
+
+## 9. Improvements
+Some impovements I would suggest for this project are:
+  + handle hardware updates
+  + color encoding for the different hardware specs to differentiate nodes
+  + automate the first running of the host_info.sh bash script
