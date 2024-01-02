@@ -1,0 +1,125 @@
+# Preferred ender/Generate different file formats
+# #Make sure you run this command prior to every profile pull request
+# bash profile_app.sh
+#
+# #This tool will generate the following files
+# ../README.md #overwrite your existing README
+# profile.json #this file will be consumed by Jarvis Consultant App
+# jarvis_profile_John_Smith.pdf #PDF version of ../README.md
+#
+name: "Devin Smith"
+# Your GitHub repo root URL
+github_repo_root_url: https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
+
+# Introduce yourself, your academic and professional background.
+# What excites you about the software industry and your passion. At least 80 words
+summary: Greetings, my name is Devin Smith and I am a recent graduate from Memorial University of Newfoundlands Computer Engineering program. I have always been interested in technology, starting with video games as a child. I have since gained interest in 3D modeling, statistical modeling and AI applications.  modeling or AI. I am a fan of competitive games, and enjoy game theory. My other hobbies include model building, and tabletop games, like Mahjong.
+
+# Group your skills by level.
+# Your skills can be anything software related (e.g. language, frameworks, methodologies, software, etc.).
+skills:
+  # At least 5 skills
+  proficient:
+    - Java
+    - Python
+    - Linux/Bash
+    - Agile/Scrum
+    - Git
+  # At least 5 skills
+  competent:
+    - RDBMS/SQL
+    - C/C++
+    - VHDL
+    - Angular
+    - Docker
+  # At least 5 skills
+  familiar:
+    - Springboot
+    - MacOS
+    - Windows
+    - Javascript
+    - ferm
+
+# List of Jarvis projects
+jarvis_projects:
+  - name: "Cluster Monitor"
+    git_url: "/linux_sql"
+    # The project description allows hiring managers to understand your project and technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: "The Cluster Monitor project measures resource usage by different nodes connected within a Linux Cluster. This was done using Docker to containerize a PostgreSQL instance, and bash scripts which were used to automate data collection into the databases tables using crontab."
+  - name: "Core Java Apps"
+    git_url: "/core_java"
+    description:
+      - "Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+      - "JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+      - "Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+  - name: "Springboot App"
+    git_url: "/springboot"
+    description: ""
+  - name: "Python Data Analytics"
+    git_url: "/python_data_anlytics"
+    description: ""
+  - name: "Hadoop"
+    git_url: "/hadoop"
+    description: ""
+  - name: "Spark"
+    git_url: "/spark"
+    description: ""
+  - name: "Cloud/DevOps"
+    git_url: "/cloud_devops"
+    description: ""
+
+# List of personal or academic projects
+# Feel free to add more projects
+highlighted_projects:
+    #project name
+  - name: "Communication Subsystem for the Killick-1 Satallite"
+    #URL is optional
+    git_url: "https://github.com/jarviscanada/jarvis_profile_builder"
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: "Assisted in the development of the communications subsystem on the Killick-1 sea ice measurement satellite, using C."
+#List of professional experience
+#The job description allows hiring managers to understand your job and the technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
+#The description must be more than 25 words. If your experience is not software related, please focus on soft skills and achievements (e.g. team collaboration, problem-solving, improvements, communication).
+professional_experience:
+  #Write your Jarvis role as a professional experience rather than training.
+  - title: "Software Developer"
+    company: "Jarvis"
+    duration: "2023-present"
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: "Developed an app for measuring resource usage by nodes in a Linux Cluster using Docker, PostgreSQL, and Bash commands. Working on a SQL project currently."
+  - title: "Research & Development"
+    company: "C-Core"
+    duration: "September 2021 - December 2021"
+    description: "Created and tested VHDL code for the Killick-1 satellites sea ice measurement technique, 'Delayed Doppler Imaging'. Joined daily scrums and weekly full team meetings."
+  - title: "Full Stack Developer"
+    company: "Innovative Development & Design Engineers Ltd. Newfoundland"
+    duration: "2020"
+    description: "Created an online form generation tool using Python and Angular. Created a testing GUI using the TKinter. Created an applet to connect to the Google Maps API for measuring property boundaries "
+
+
+#List of education
+education: 
+  - school_name: "Memorial University of Newfoundland"
+    duration: "2017-2022"
+    degree: "Bachelor of Applied Sciences, Computer Engineering"
+    department: "Department Engineering and Applied Sciences"
+    # optional
+    awards_achievements:
+      - "GPA 3.5/4.0"
+
+    #Optional section
+others:
+    #category
+  - title: "Certificates"
+    #list of items
+    bullets:
+      - "List of items"
+  - title: "Awards"
+    bullets:
+      - "Winner"
+  - title: "Activities/Hobbies"
+    bullets:
+      - "Basketball player"
+      - "Competitive gaming"
+      - "Volunteer, ABC Food bank: Ut enim ad minim veniam"
