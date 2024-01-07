@@ -26,3 +26,54 @@ WHERE name LIKE '%Tennis%';
 
 SELECT * FROM cd.facilities
 WHERE name like '%2';
+
+SELECT memid, surname, firstname, joindate FROM cd.members
+WHERE joindate >= '2012-09-01';
+
+SELECT surname FROM cd.members
+UNION
+SELECT name FROM cd.facilities;
+
+SELECT starttime FROM cd.bookings
+INNER JOIN cd.members ON cd.members.memid = cd.bookings.memid
+WHERE cd.members.firstname = 'David'
+AND cd.members.surname = 'Farrell';
+
+SELECT cd.bookings.starttime, cd.facilities.name  FROM cd.bookings
+INNER JOIN cd.facilities ON cd.facilities.facid = cd.bookings.facid
+WHERE cd.facilities.name in ('Tennis Court 2', 'Tennis Court 1') AND
+cd.bookings.starttime >= '2012-09-21' AND
+cd.bookings.starttime < '2012-09-22'
+ORDER BY cd.bookings.starttime;
+
+SELECT mems.firstname, mems.surname, recs.firstname, recs.surname FROM cd.members mems
+LEFT OUTER JOIN cd.members recs 
+ON recs.memid = mems.recommendedby
+ORDER BY mems.surname, mems.firstname;
+
+SELECT DISTINCT recs.firstname, recs.surname FROM cd.members mems  
+INNER JOIN cd.members recs  
+ON recs.memid = mems.recommendedby  
+ORDER BY surname, firstname;
+
+SELECT DISTINCT mems.firstname || ' ' || mems.surname as member,
+(SELECT recs.firstname || ' ' || recs.surname as recommender FROM cd.members recs
+ WHERE recs.memid = mems.recommendedby
+ )
+ FROM cd.members mems
+ ORDER BY member;
+
+SELECT recommendedby, count(*) FROM cd.members
+WHERE recommendedby IS NOT NULL
+GROUP BY recommendedby
+ORDER BY recommendedby;
+
+SELECT facid, sum(slots) AS "Total Slots" FROM cd.bookings
+GROUP BY facid
+ORDER BY facid;
+
+SELECT facid, sum(slots) AS "Total Slots" FROM cd.bookings
+WHERE starttime >= '2012-09-01'
+AND starttime < '2012-10-01'
+GROUP BY facid
+ORDER BY sum(slots);
