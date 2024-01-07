@@ -14,3 +14,15 @@ SET membercost = (SELECT membercost * 1.1 FROM cd.facilities WHERE name = 'Tenni
 WHERE name = 'Tennis Court 2';
 
 DELETE FROM cd.bookings;
+
+DELETE FROM cd.members WHERE memid = 37;
+
+SELECT facid, name, membercost, monthlymaintenance FROM cd.facilities
+WHERE membercost > 0 and
+      (membercost < monthlymaintenance/50);
+
+SELECT * FROM cd.facilities
+WHERE name LIKE '%Tennis%';
+
+SELECT * FROM cd.facilities
+WHERE name like '%2';
