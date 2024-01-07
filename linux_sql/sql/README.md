@@ -126,6 +126,79 @@ How can you retrieve the details of facilities with ID 1 and 5? Try to do it wit
 SELECT * FROM cd.facilities  
 WHERE name like '%2';
 ### Question 10:
+How can you produce a list of members who joined after the start of September 2012? Return the memid, surname, firstname, and joindate of the members in question.
+### Answer SQL:
+SELECT memid, surname, firstname, joindate FROM cd.members  
+WHERE joindate >= '2012-09-01';
+### Question 11:
+You, for some reason, want a combined list of all surnames and all facility names. Yes, this is a contrived example :-). Produce that list!
+### Answer SQL:
+SELECT surname FROM cd.members  
+UNION  
+SELECT name FROM cd.facilities;
+### Question 12:
+How can you produce a list of the start times for bookings by members named 'David Farrell'?
+### Answer SQL:
+SELECT starttime FROM cd.bookings  
+INNER JOIN cd.members ON cd.members.memid = cd.bookings.memid  
+WHERE cd.members.firstname = 'David'  
+AND cd.members.surname = 'Farrell';
+### Question 13:
+How can you produce a list of the start times for bookings for tennis courts, for the date '2012-09-21'? Return a list of start time and facility name pairings, ordered by the time.
+### Answer SQL:
+SELECT cd.bookings.starttime, cd.facilities.name  FROM cd.bookings  
+INNER JOIN cd.facilities ON cd.facilities.facid = cd.bookings.facid  
+WHERE cd.facilities.name in ('Tennis Court 2', 'Tennis Court 1') AND  
+cd.bookings.starttime >= '2012-09-21' AND  
+cd.bookings.starttime < '2012-09-22'  
+ORDER BY cd.bookings.starttime;
+### Question 14:
+How can you output a list of all members, including the individual who recommended them (if any)? Ensure that results are ordered by (surname, firstname).
+### Answer SQL:
+SELECT mems.firstname, mems.surname, recs.firstname, recs.surname FROM cd.members mems  
+LEFT OUTER JOIN cd.members recs  
+ON recs.memid = mems.recommendedby  
+ORDER BY mems.surname, mems.firstname;
+### Question 15:
+How can you output a list of all members who have recommended another member? Ensure that there are no duplicates in the list, and that results are ordered by (surname, firstname).
+### Answer SQL:
+SELECT DISTINCT recs.firstname, recs.surname FROM cd.members mems  
+INNER JOIN cd.members recs  
+ON recs.memid = mems.recommendedby  
+ORDER BY surname, firstname;
+### Question 16:
+How can you output a list of all members, including the individual who recommended them (if any), without using any joins? Ensure that there are no duplicates in the list, and that each firstname + surname pairing is formatted as a column and ordered.
+### Answer SQL:
+SELECT DISTINCT mems.firstname || ' ' || mems.surname as member,  
+(SELECT recs.firstname || ' ' || recs.surname as recommender FROM cd.members recs  
+ WHERE recs.memid = mems.recommendedby  
+ )  
+ FROM cd.members mems  
+ ORDER BY member;  
+### Question 17:
+Produce a count of the number of recommendations each member has made. Order by member ID.
+### Answer SQL:
+SELECT recommendedby, count(*) FROM cd.members  
+WHERE recommendedby IS NOT NULL  
+GROUP BY recommendedby  
+ORDER BY recommendedby;
+### Question 18:
+Produce a list of the total number of slots booked per facility. For now, just produce an output table consisting of facility id and slots, sorted by facility id.
+### Answer SQL:
+SELECT facid, sum(slots) AS "Total Slots" FROM cd.bookings  
+GROUP BY facid  
+ORDER BY facid; 
+### Question 19:
+Produce a list of the total number of slots booked per facility in the month of September 2012. Produce an output table consisting of facility id and slots, sorted by the number of slots.
+### Answer SQL:
+SELECT facid, sum(slots) AS "Total Slots" FROM cd.bookings  
+WHERE starttime >= '2012-09-01'  
+AND starttime < '2012-10-01'  
+GROUP BY facid  
+ORDER BY sum(slots);
+### Question 20:
+Produce a list of the total number of slots booked per facility per month in the year of 2012. Produce an output table consisting of facility id and slots, sorted by the id and month.
+### Answer SQL:
 
 ## 7. Testing
 Testing this code was in two parts, the bash scripts were tested while coding through the use of `echo` statements on the bash scripts. These are further confirmed using docker and psql commands to check that the docker instance is running, and that the tables are generated. host_info.sh is manually called to populate the host_info table, as it is needed to run host_usage.sh. Afterwards, with crontab running the host_usage.log can be checked with cat to confirm the appropriate data is being generated, and you can check the host_usage table to see that it is being populated.
