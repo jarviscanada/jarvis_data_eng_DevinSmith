@@ -106,6 +106,27 @@ As part of a clearout of our database, we want to delete all bookings from the c
 ### Answer SQL:
 DELETE FROM cd.bookings;
 ### Question 6:
+We want to remove member 37, who has never made a booking, from our database. How can we achieve that?
+### Answer SQL:
+DELETE FROM cd.members WHERE memid = 37;
+### Question 7:
+How can you produce a list of facilities that charge a fee to members, and that fee is less than 1/50th of the monthly maintenance cost? Return the facid, facility name, member cost, and monthly maintenance of the facilities in question.
+### Answer SQL:
+SELECT facid, name, membercost, monthlymaintenance FROM cd.facilities  
+WHERE membercost > 0 and  
+      (membercost < monthlymaintenance/50);
+### Question 8:
+How can you produce a list of all facilities with the word 'Tennis' in their name?
+### Answer SQL:
+SELECT * FROM cd.facilities  
+WHERE name LIKE '%Tennis%';
+### Question 9:
+How can you retrieve the details of facilities with ID 1 and 5? Try to do it without using the OR operator.
+### Answer SQL:
+SELECT * FROM cd.facilities  
+WHERE name like '%2';
+### Question 10:
+
 ## 7. Testing
 Testing this code was in two parts, the bash scripts were tested while coding through the use of `echo` statements on the bash scripts. These are further confirmed using docker and psql commands to check that the docker instance is running, and that the tables are generated. host_info.sh is manually called to populate the host_info table, as it is needed to run host_usage.sh. Afterwards, with crontab running the host_usage.log can be checked with cat to confirm the appropriate data is being generated, and you can check the host_usage table to see that it is being populated.
 
