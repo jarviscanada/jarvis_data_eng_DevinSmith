@@ -77,3 +77,39 @@ WHERE starttime >= '2012-09-01'
 AND starttime < '2012-10-01'
 GROUP BY facid
 ORDER BY sum(slots);
+
+SELECT facid, EXTRACT(month FROM starttime) AS month, SUM(slots) AS "Total Slots"
+FROM cd.bookings
+WHERE EXTRACT(year FROM starttime) = 2012
+GROUP BY facid, month
+ORDER BY facid, month;
+
+SELECT COUNT(DISTINCT memid) from cd.bookings;
+
+SELECT mems.surname, mems.firstname, mems.memid, MIN(bks.starttime) as starttime
+FROM cd.bookings bks
+INNER JOIN cd.members mems ON mems.memid = bks.memid
+WHERE starttime >= '2012-09-01'
+GROUP BY mems.surname, mems,firstname, mems.memid
+ORDER BY mems.memid;
+
+SELECT COUNT(*) OVER(), firstname, surname
+FROM cd.members
+ORDER BY joindate;
+
+SELECT COUNT(*) OVER(ORDER BY joindate), firstname, surname
+FROM cd.members
+ORDER BY joindate;
+
+---MISSING ANSWER TO QUESTION 25
+
+SELECT surname || ', ' || firstname AS name FROM cd.members;
+
+SELECT memid, telephone FROM cd.members
+WHERE telephone SIMILAR TO '%[()]%'
+ORDER BY memid;
+
+SELECT SUBSTR (surname,1,1) AS letter, COUNT(*) AS count  
+FROM cd.members  
+GROUP BY letter  
+ORDER BY letter;
