@@ -169,8 +169,8 @@ ORDER BY surname, firstname;
 ### Question 16:
 How can you output a list of all members, including the individual who recommended them (if any), without using any joins? Ensure that there are no duplicates in the list, and that each firstname + surname pairing is formatted as a column and ordered.
 ### Answer SQL:
-SELECT DISTINCT mems.firstname || ' ' || mems.surname as member,  
-(SELECT recs.firstname || ' ' || recs.surname as recommender FROM cd.members recs  
+SELECT DISTINCT mems.firstname || ' ' || mems.surname AS member,  
+(SELECT recs.firstname || ' ' || recs.surname AS recommender FROM cd.members recs  
  WHERE recs.memid = mems.recommendedby  
  )  
  FROM cd.members mems  
@@ -199,7 +199,57 @@ ORDER BY sum(slots);
 ### Question 20:
 Produce a list of the total number of slots booked per facility per month in the year of 2012. Produce an output table consisting of facility id and slots, sorted by the id and month.
 ### Answer SQL:
+SELECT facid, EXTRACT(month FROM starttime) AS month, SUM(slots) AS "Total Slots"  
+FROM cd.bookings  
+WHERE EXTRACT(year FROM starttime) = 2012  
+GROUP BY facid, month  
+ORDER BY facid, month;
+### Question 21:
+Find the total number of members (including guests) who have made at least one booking.
+### Answer SQL:
+SELECT COUNT(DISTINCT memid) from cd.bookings;
+### Question 22:
+Produce a list of each member name, id, and their first booking after September 1st 2012. Order by member ID.
+### Answer SQL:
+SELECT mems.surname, mems.firstname, mems.memid, MIN(bks.starttime) as starttime  
+FROM cd.bookings bks  
+INNER JOIN cd.members mems ON mems.memid = bks.memid  
+WHERE starttime >= '2012-09-01'  
+GROUP BY mems.surname, mems,firstname, mems.memid  
+ORDER BY mems.memid;
+### Question 23:
+Produce a list of member names, with each row containing the total member count. Order by join date, and include guest members.
+### Answer SQL:
+SELECT COUNT(*) OVER(), firstname, surname  
+FROM cd.members  
+ORDER BY joindate;
+### Question 24:
+Produce a monotonically increasing numbered list of members (including guests), ordered by their date of joining. Remember that member IDs are not guaranteed to be sequential.
+### Answer SQL:
+SELECT COUNT(*) OVER(ORDER BY joindate), firstname, surname  
+FROM cd.members  
+ORDER BY joindate;
+### Question 25:
+Output the facility id that has the highest number of slots booked. Ensure that in the event of a tie, all tieing results get output.
+### Answer SQL:
 
+### Question 26:
+Output the names of all members, formatted as 'Surname, Firstname'
+### Answer SQL:
+SELECT surname || ', ' || firstname AS name FROM cd.members;
+### Question 27:
+You've noticed that the club's member table has telephone numbers with very inconsistent formatting. You'd like to find all the telephone numbers that contain parentheses, returning the member ID and telephone number sorted by member ID.
+### Answer SQL:
+SELECT memid, telephone FROM cd.members  
+WHERE telephone SIMILAR TO '%[()]%'  
+ORDER BY memid;
+### Question 28:
+You'd like to produce a count of how many members you have whose surname starts with each letter of the alphabet. Sort by the letter, and don't worry about printing out a letter if the count is 0.
+### Answer SQL:
+SELECT SUBSTR (surname,1,1) AS letter, COUNT(*) AS count  
+FROM cd.members  
+GROUP BY letter  
+ORDER BY letter;
 ## 7. Testing
 Testing this code was in two parts, the bash scripts were tested while coding through the use of `echo` statements on the bash scripts. These are further confirmed using docker and psql commands to check that the docker instance is running, and that the tables are generated. host_info.sh is manually called to populate the host_info table, as it is needed to run host_usage.sh. Afterwards, with crontab running the host_usage.log can be checked with cat to confirm the appropriate data is being generated, and you can check the host_usage table to see that it is being populated.
 
