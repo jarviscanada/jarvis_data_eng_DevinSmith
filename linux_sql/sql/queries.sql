@@ -101,7 +101,12 @@ SELECT COUNT(*) OVER(ORDER BY joindate), firstname, surname
 FROM cd.members
 ORDER BY joindate;
 
----MISSING ANSWER TO QUESTION 25
+SELECT facid, total FROM (
+   SELECT facid, SUM(slots) total, rank() OVER (ORDER BY SUM(slots) desc) rank
+  FROM cd.bookings
+  GROUP BY facid
+  ) AS ranked
+  WHERE rank = 1;
 
 SELECT surname || ', ' || firstname AS name FROM cd.members;
 
