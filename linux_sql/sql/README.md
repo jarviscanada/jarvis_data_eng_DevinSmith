@@ -232,7 +232,12 @@ ORDER BY joindate;
 ### Question 25:
 Output the facility id that has the highest number of slots booked. Ensure that in the event of a tie, all tieing results get output.
 ### Answer SQL:
-
+SELECT facid, total FROM (  
+   SELECT facid, SUM(slots) total, rank() OVER (ORDER BY SUM(slots) desc) rank  
+  FROM cd.bookings  
+  GROUP BY facid  
+  ) AS ranked  
+  WHERE rank = 1;
 ### Question 26:
 Output the names of all members, formatted as 'Surname, Firstname'
 ### Answer SQL:
@@ -250,14 +255,3 @@ SELECT SUBSTR (surname,1,1) AS letter, COUNT(*) AS count
 FROM cd.members  
 GROUP BY letter  
 ORDER BY letter;
-## 7. Testing
-Testing this code was in two parts, the bash scripts were tested while coding through the use of `echo` statements on the bash scripts. These are further confirmed using docker and psql commands to check that the docker instance is running, and that the tables are generated. host_info.sh is manually called to populate the host_info table, as it is needed to run host_usage.sh. Afterwards, with crontab running the host_usage.log can be checked with cat to confirm the appropriate data is being generated, and you can check the host_usage table to see that it is being populated.
-
-## 8. Deployment
-The code is deployable by downloading the Github repository, then following the quickstart commands, which will obtain and implement a docker container with a psql instance generated within, and create the relevent tables. Once the `host_info.sh` script is run, and the crontab job is created, it runs and collects data autonomously.
-
-## 9. Improvements
-Some impovements I would suggest for this project are:
-  + handle hardware updates
-  + color encoding for the different hardware specs to differentiate nodes
-  + automate the first running of the host_info.sh bash script
