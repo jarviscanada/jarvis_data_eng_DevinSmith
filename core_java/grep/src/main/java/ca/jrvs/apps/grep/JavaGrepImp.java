@@ -34,26 +34,15 @@ public class JavaGrepImp implements JavaGrep {
     }
 
     @Override
-    public String getRegex() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public String getRegex() { return regex; }
 
     @Override
-    public void setRegex(String regex) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void setRegex(String regex) { this.regex = regex; }
     
     @Override
-    public String getOutFile() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public String getOutFile() { return outFile; }
 
     @Override
-    public void setOutFile(String outFile) {
-        // TODO Auto-generated method stub
+    public void setOutFile(String outFile) { this.outFile = outFile; }
         
-    }
 }
