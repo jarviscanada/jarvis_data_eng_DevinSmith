@@ -1,10 +1,19 @@
 package ca.jrvs.apps.grep;
 
 import java.util.List;
-import java.io.*;
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.log4j.BasicConfigurator;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 
 public class JavaGrepImp implements JavaGrep {
@@ -42,22 +51,39 @@ public class JavaGrepImp implements JavaGrep {
 
     @Override
     public List<File> listFiles(String rootDir) {
-        //TODO actual logic
+        File directPath = new File(rootDir);
+
         return new List<File>();
             
     }
 
+    // http://www.java2s.com/Tutorial/Java/0180__File/ReadLinesreadfiletolistofstrings.htm
+    // Parses the input file into an array of individual lines
     @Override
     public List<String> readLines(File inputFile) {
-        //TODO actual logic
-        List<String> myList = new List<String>();
+        if (!inputFile.exists()) {
+            return new ArrayList<String>();
+        }
+        BufferedReader newReader = new BufferedReader(new FileReader(inputFile));
+        List<String> myList = new ArrayList<String>();
+        String line = new reader.readLine();
+        while (line != null) {
+            myList.add(line);
+            line = newReader.readLine();
+        }
         return myList;
 
     }
 
+    // https://www.w3schools.com/java/java_regex.asp
     @Override
     public boolean containsPattern(String line) {
-        //TODO real logic
+        Pattern regexToCheck = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher toBeCompared = pattern.matcher(line);
+        boolean isMatchFound = matcher.find();
+        if (isMatchFound) {
+            return true;
+        }
         return false;
     }
 
