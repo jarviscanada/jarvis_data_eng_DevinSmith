@@ -25,6 +25,7 @@ public class JavaGrepImp implements JavaGrep {
     private String outFile;
 
     public static void main(String[] args) {
+ 
         if (args.length != 3) {
             throw new IllegalArgumentException("USAGE: JavaGrep regex rootPath outFile");
         }
@@ -47,14 +48,36 @@ public class JavaGrepImp implements JavaGrep {
     @Override 
     public void process() throws IOException {
         //TODO actual logic
+        List<File> listedFiles = new listFiles(rootDir);
+        List<String> matchedLines = new List<String>();
+        for (File file : listedFiles) {
+            List<String> listedStrings = readLines(file);
+            for (String str : listedStrings) {
+                if (containsPattern(str)) {
+                    matchedLines.add(str);
+                }
+            }
+        }
+        writeToFile(matchedLines);
     }
 
     @Override
     public List<File> listFiles(String rootDir) {
-        File directPath = new File(rootDir);
-
-        return new List<File>();
-            
+        File directoryPath = new File(rootDir);
+        File filesList[] = directoryPath.listFiles();
+        List<File> returnableList = new List<File>();
+        for (File file : filesList) {
+            if (file.isDirectory()) {
+                List<File> innerList = listFiles(file.getAbsolutePath());
+                if (innerList != null) {
+                    returnableList.add(innerList);
+                }
+            }
+            else {
+                returnableList.add(file);
+            }
+        }
+        return returnableList;
     }
 
     // http://www.java2s.com/Tutorial/Java/0180__File/ReadLinesreadfiletolistofstrings.htm
@@ -89,7 +112,12 @@ public class JavaGrepImp implements JavaGrep {
 
     @Override
     public void writeToFile(List<String> lines) throws IOException{
-        //TODO real logic
+
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outFile));
+        for (String str : lines) {
+            bufferedWriter.write(str + System.lineSeparator());
+        }
+        bufferedWriter.close();
     }
 
     @Override
