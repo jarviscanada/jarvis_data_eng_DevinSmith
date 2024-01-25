@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.log4j.BasicConfigurator;
 import java.io.IOException;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -47,10 +46,9 @@ public class JavaGrepImp implements JavaGrep {
 
     @Override 
     public void process() throws IOException {
-        //TODO actual logic
-        List<File> listedFiles = new listFiles(rootDir);
-        List<String> matchedLines = new List<String>();
-        for (File file : listedFiles) {
+        //List<File> listedFiles = new ArrayList<File>(listFiles(getRootPath()));
+        List<String> matchedLines = new ArrayList<String>();
+        for (File file : listFiles(getRootPath())) {
             List<String> listedStrings = readLines(file);
             for (String str : listedStrings) {
                 if (containsPattern(str)) {
@@ -65,12 +63,12 @@ public class JavaGrepImp implements JavaGrep {
     public List<File> listFiles(String rootDir) {
         File directoryPath = new File(rootDir);
         File filesList[] = directoryPath.listFiles();
-        List<File> returnableList = new List<File>();
+        List<File> returnableList = new ArrayList<File>();
         for (File file : filesList) {
             if (file.isDirectory()) {
                 List<File> innerList = listFiles(file.getAbsolutePath());
                 if (innerList != null) {
-                    returnableList.add(innerList);
+                    returnableList.addAll(innerList);
                 }
             }
             else {
@@ -82,17 +80,23 @@ public class JavaGrepImp implements JavaGrep {
 
     // http://www.java2s.com/Tutorial/Java/0180__File/ReadLinesreadfiletolistofstrings.htm
     // Parses the input file into an array of individual lines
+    // ADD TRY-WITH-RESOURCES BLOCK FOR BUFFERED READER
     @Override
     public List<String> readLines(File inputFile) {
         if (!inputFile.exists()) {
             return new ArrayList<String>();
         }
-        BufferedReader newReader = new BufferedReader(new FileReader(inputFile));
         List<String> myList = new ArrayList<String>();
-        String line = new reader.readLine();
+        try( BufferedReader newReader = new BufferedReader(new FileReader(inputFile));) {
+        
+        String line = newReader.readLine();
         while (line != null) {
             myList.add(line);
             line = newReader.readLine();
+        }
+        } catch (IOException e) {
+            //TODO CLEAN UP LOGGER
+           logger.info(outFile, e);
         }
         return myList;
 
@@ -102,12 +106,13 @@ public class JavaGrepImp implements JavaGrep {
     @Override
     public boolean containsPattern(String line) {
         Pattern regexToCheck = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher toBeCompared = pattern.matcher(line);
-        boolean isMatchFound = matcher.find();
-        if (isMatchFound) {
-            return true;
-        }
-        return false;
+        return regexToCheck.matcher(line).find();
+        //Matcher toBeCompared = pattern.matcher(line);
+        //boolean isMatchFound = matcher.find();
+        //if (isMatchFound) {
+        //    return true;
+        //}
+        //return false;
     }
 
     @Override
