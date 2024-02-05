@@ -13,7 +13,7 @@ github_repo_root_url: https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
 
 # Introduce yourself, your academic and professional background.
 # What excites you about the software industry and your passion. At least 80 words
-summary: Greetings, my name is Devin Smith and I am a recent graduate from Memorial University of Newfoundlands Computer Engineering program. I have always been interested in technology, starting with video games as a child. I have since gained interest in 3D modeling, statistical modeling and AI applications.  modeling or AI. I am a fan of competitive games, and enjoy game theory. My other hobbies include model building, and tabletop games, like Mahjong.
+summary: Greetings, my name is Devin Smith and I am a recent graduate from Memorial University of Newfoundlands Computer Engineering program. I have always been interested in technology, starting with video games as a child. I have since gained interest in 3D modeling, statistical modeling and AI applications. I am a fan of competitive games, and enjoy game theory. My other hobbies include model building, and tabletop games, like Mahjong.
 
 # Group your skills by level.
 # Your skills can be anything software related (e.g. language, frameworks, methodologies, software, etc.).
@@ -52,7 +52,7 @@ jarvis_projects:
     description:
       - "Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
       - "JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
-      - "Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+      - "Grep App: The grep app is designed to emulate the grep command line utility. It was built in java, written through VSCode and then dockerized for easy deployment."
   - name: "Springboot App"
     git_url: "/springboot"
     description: ""
