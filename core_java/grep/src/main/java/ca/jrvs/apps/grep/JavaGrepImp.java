@@ -95,7 +95,6 @@ public class JavaGrepImp implements JavaGrep {
             line = newReader.readLine();
         }
         } catch (IOException e) {
-            //TODO CLEAN UP LOGGER
            logger.info(outFile, e);
         }
         return myList;

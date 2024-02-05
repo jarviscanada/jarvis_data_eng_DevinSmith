@@ -16,7 +16,7 @@
             "request": "launch",
             "mainClass": "ca.jrvs.apps.grep.JavaGrepImp",
             "projectName": "grep",
-            "args": ["Romeo", "C:/Jarvis/jarvis_data_eng_DevinSmith/core_java/grep/data/txt", "./outPutFile.txt"]
+            "args": [".*Romeo.*Juliet.*", "C:/Jarvis/jarvis_data_eng_DevinSmith/core_java/grep/data/txt", "./outPutFile.txt"]
         },
         {
             "type": "java",
