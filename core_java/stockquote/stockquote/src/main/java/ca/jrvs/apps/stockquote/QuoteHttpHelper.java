@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonParser;
 import okhttp3.*;
+import ca.jrvs.apps.stockquote.Quote;
 
 public class QuoteHttpHelper {
 	
@@ -28,19 +29,18 @@ public class QuoteHttpHelper {
 	 */
 	public Quote fetchQuoteInfo(String symbol) throws IllegalArgumentException {
 		Request request = new Request.Builder()
-	.url("https://alpha-vantage.p.rapidapi.com/query?interval=5min&function=TIME_SERIES_INTRADAY&symbol=MSFT&datatype=json&output_size=compact")
-	.get()
-	.addHeader("X-RapidAPI-Key", apiKey)
-	.addHeader("X-RapidAPI-Host", "alpha-vantage.p.rapidapi.com")
-	.build();
-
+		.url("https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol="+symbol+"&datatype=json")
+		.get()
+		.addHeader("X-RapidAPI-Key", apiKey)
+		.addHeader("X-RapidAPI-Host", "alpha-vantage.p.rapidapi.com")
+		.build();
 //Response response = client.newCall(request).execute();
 		try {
 			//HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 			Response response = client.newCall(request).execute();
-			System.out.println(response.body());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			System.out.println(response.body().string());
+		//} catch (InterruptedException e) {
+		//	e.printStackTrace();
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
@@ -50,9 +50,9 @@ public class QuoteHttpHelper {
 		}
 	}
 
-	void main () {
-		apiKey = "asdfasdfa";
+	public static void main (String args[]) {
 		OkHttpClient client = new OkHttpClient();
-		QuoteHttpHelper helper = new QuoteHttpHelper(apiKey, client);
+		QuoteHttpHelper helper = new QuoteHttpHelper("FILLER", client);
+		helper.fetchQuoteInfo("MSFT");
 	}
 }
