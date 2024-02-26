@@ -13,7 +13,7 @@ public class AVRestAPI {
 
     public static void main(String... args) {
     String symbol = "MSFT";
-    String apiKey = "BLANK_FOR_SAFETY";
+    String apiKey = "a5201af874msh748f3eaddf52167p1e3d1cjsn0c94890c25b4";
     HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol="+symbol+"&datatype=json"))
 				.header("X-RapidAPI-Key", apiKey)

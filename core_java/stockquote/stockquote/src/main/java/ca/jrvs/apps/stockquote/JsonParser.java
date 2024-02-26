@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import ca.jrvs.apps.twitter.example.dto.Company;
+import ca.jrvs.apps.stockquote.dto.Company;
 
 public class JsonParser {
     /**
