@@ -1,4 +1,4 @@
-package ca.jrvs.apps.stockquote;
+package ca.jrvs.apps.stockquote.dao;
 
 import java.io.IOException;
 import java.net.URI;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonParser;
 import okhttp3.*;
-import ca.jrvs.apps.stockquote.Quote;
+import ca.jrvs.apps.stockquote.dao.Quote;
 
 public class QuoteHttpHelper {
 	
@@ -39,6 +39,8 @@ public class QuoteHttpHelper {
 			//HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 			Response response = client.newCall(request).execute();
 			System.out.println(response.body().string());
+			Quote quote = toObjectFromJson(response.body().string(), Quote.class);
+			
 		//} catch (InterruptedException e) {
 		//	e.printStackTrace();
 		} catch (JsonMappingException e) {
@@ -48,11 +50,12 @@ public class QuoteHttpHelper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 	public static void main (String args[]) {
 		OkHttpClient client = new OkHttpClient();
-		QuoteHttpHelper helper = new QuoteHttpHelper("FILLER", client);
-		helper.fetchQuoteInfo("MSFT");
+		QuoteHttpHelper helper = new QuoteHttpHelper("a5201af874msh748f3eaddf52167p1e3d1cjsn0c94890c25b4", client);
+		Quote newQuote = helper.fetchQuoteInfo("MSFT");
 	}
 }

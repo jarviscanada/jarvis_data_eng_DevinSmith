@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import ca.jrvs.apps.stockquote.dao.QuoteHttpHelper;
 import okhttp3.OkHttpClient;
 
 /**
