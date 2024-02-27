@@ -5,7 +5,12 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.Timestamp;
+import java.util.Date;
+
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonParser;
 import okhttp3.*;
@@ -28,27 +33,39 @@ public class QuoteHttpHelper {
 	 * @throws IllegalArgumentException - if no data was found for the given symbol
 	 */
 	public Quote fetchQuoteInfo(String symbol) throws IllegalArgumentException {
-		Request request = new Request.Builder()
-		.url("https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol="+symbol+"&datatype=json")
-		.get()
-		.addHeader("X-RapidAPI-Key", apiKey)
-		.addHeader("X-RapidAPI-Host", "alpha-vantage.p.rapidapi.com")
-		.build();
-//Response response = client.newCall(request).execute();
+		HttpRequest request = HttpRequest.newBuilder()
+			.uri(URI.create("https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol="+symbol+"&datatype=json")) 
+			.header("X-RapidAPI-Key", apiKey) 
+			.header("X-RapidAPI-Host", "alpha-vantage.p.rapidapi.com") 
+			.method("GET", HttpRequest.BodyPublishers.noBody()) 
+			.build();
 		try {
-			//HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-			Response response = client.newCall(request).execute();
-			System.out.println(response.body().string());
-			Quote quote = toObjectFromJson(response.body().string(), Quote.class);
+			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+			Date date = new Date();
+			Timestamp timestamp = new Timestamp(date.getTime());
+			//Response response = client.newCall(request).execute();
+			System.out.println(response.body());
+			//Quote quote = toObjectFromJson(response.body().string(), Quote.class);
+			ObjectMapper m = new ObjectMapper();
+			JsonNode newNode = m.readTree(response.body());
+			JsonNode newestNode = newNode.get("Global Quote");
+        	Quote quote = m.convertValue(newestNode, Quote.class);
+			quote.setTimeStamp(timestamp);
+			System.out.println(quote);
+			return quote;
 			
-		//} catch (InterruptedException e) {
-		//	e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			return null;
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
+			return null;
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
+			return null;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
 		
 	}

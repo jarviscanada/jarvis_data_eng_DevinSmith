@@ -7,152 +7,151 @@ import java.sql.Timestamp;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-	"ticker",
-	"open",
-	"high",
-	"low",
-	"price",
-	"volume",
-	"latestTradingDay",
-	"previousClose",
-	"change",
-	"changePercent",
-	"timestampe"
+	"01. symbol",
+	"02. open",
+	"03. high",
+	"04. low",
+	"05. price",
+	"06. volume",
+	"07. latest trading day",
+	"08. previous close",
+	"09. change",
+	"10. change percent",
+	"11. timestamp"
 })
 
 public class Quote {
 
-	@JsonProperty("ticker")
+	@JsonProperty("01. symbol")
 	private String ticker; //id
-	@JsonProperty("open")
+	@JsonProperty("02. open")
 	private double open;
-	@JsonProperty("high")
+	@JsonProperty("03. high")
 	private double high;
-	@JsonProperty("low")
+	@JsonProperty("04. low")
 	private double low;
-	@JsonProperty("price")
+	@JsonProperty("05. price")
 	private double price;
-	@JsonProperty("volume")
+	@JsonProperty("06. volume")
 	private int volume;
-	@JsonProperty("latestTradingDay")
+	@JsonProperty("07. latest trading day")
 	private Date latestTradingDay;
-	@JsonProperty("previosClose")
+	@JsonProperty("08. previous close")
 	private double previousClose;
-	@JsonProperty("change")
+	@JsonProperty("09. change")
 	private double change;
-	@JsonProperty("changePercent")
+	@JsonProperty("10. change percent")
 	private String changePercent;
-	@JsonProperty("timeStamp")
+	@JsonProperty("11. timestamp")
 	private Timestamp timestamp; //time when the info was pulled
 
-	@JsonProperty("ticker")
+	@JsonProperty("01. symbol")
 	public String getTicker() {
 		return ticker;
 	}
 
-	@JsonProperty("ticker")
+	@JsonProperty("01. symbol")
 	public void setTicker(String ticker) {
 		this.ticker = ticker;
 	}
 
-	@JsonProperty("open")
+	@JsonProperty("02. open")
 	public String getOpen() {
 		return ticker;
 	}
 
-	@JsonProperty("open")
+	@JsonProperty("02. open")
 	public void setOpen(Double open) {
 		this.open = open;
 	}
 
-	@JsonProperty("high")
+	@JsonProperty("03. high")
 	public Double getHigh() {
 		return high;
 	}
 
-	@JsonProperty("high")
+	@JsonProperty("03. high")
 	public void setHigh(Double high) {
 		this.high = high;
 	}
 
-	@JsonProperty("low")
+	@JsonProperty("04. low")
 	public Double getLow() {
 		return low;
 	}
 
-	@JsonProperty("low")
+	@JsonProperty("04. low")
 	public void setLow(Double low) {
 		this.low = low;
 	}
 
-	@JsonProperty("price")
+	@JsonProperty("05. price")
 	public Double getPrice() {
 		return price;
 	}
 
-	@JsonProperty("price")
+	@JsonProperty("05. price")
 	public void setPrice(Double price) {
 		this.price = price;
 	}
 
-	@JsonProperty("volume")
+	@JsonProperty("06. volume")
 	public int getVolume() {
 		return volume;
 	}
 
-	@JsonProperty("volume")
+	@JsonProperty("06. volume")
 	public void setVolume(int volume) {
 		this.volume = volume;
 	}
 
-	@JsonProperty("latestTradingday")
+	@JsonProperty("07. latest trading day")
 	public Date getLatestTradingDay() {
 		return latestTradingDay;
 	}
 
-	@JsonProperty("latestTradingday")
+	@JsonProperty("07. latest trading day")
 	public void setLatestTradingDay(Date latestTradingDay) {
 		this.latestTradingDay = latestTradingDay;
 	}
 
-	@JsonProperty("previousClose")
+	@JsonProperty("08. previous close")
 	public double getPreviousClose() {
 		return previousClose;
 	}
 
-	@JsonProperty("previousClose")
+	@JsonProperty("08. previous close")
 	public void setPreviousClose(double previousClose) {
 		this.previousClose = previousClose;
 	}
 
-	@JsonProperty("change")
+	@JsonProperty("09. change")
 	public double getChange() {
 		return change;
 	}
 
-	@JsonProperty("change")
+	@JsonProperty("09. change")
 	public void setChange(double change) {
 		this.change = change;
 	}
 	
-	@JsonProperty("changePercent")
+	@JsonProperty("10. change percent")
 	public String getChangePercent() {
 		return changePercent;
 	}
 
-	@JsonProperty("changePercent")
+	@JsonProperty("10. change percent")
 	public void setChangePercent(String changePercent) {
 		this.changePercent = changePercent;
 	}
 
-	@JsonProperty("timestamp")
+	@JsonProperty("11. timestamp")
 	public Timestamp getTimestamp() {
 		return timestamp;
 	}
 
-	@JsonProperty("timestamp")
+	@JsonProperty("12. timestamp")
 	public void setTimeStamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
-
 }

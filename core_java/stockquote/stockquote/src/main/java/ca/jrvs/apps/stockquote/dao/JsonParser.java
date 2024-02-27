@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import ca.jrvs.apps.stockquote.dto.Company;
+import ca.jrvs.apps.stockquote.dao.Quote;
 
 public class JsonParser {
     /**
@@ -41,10 +41,10 @@ public class JsonParser {
         //m.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return (T) m.readValue(json, clazz);
     } 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         Company company = toObjectFromJson(companyStr, Company.class);
         System.out.println(toJson(company, true, false));
-    }
+    } */
 
     public static final String companyStr = "{\n"
       + "   \"symbol\":\"AAPL\",\n"
