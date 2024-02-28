@@ -6,7 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -41,16 +41,16 @@ public class QuoteHttpHelper {
 			.build();
 		try {
 			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-			Date date = new Date();
+			java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
 			Timestamp timestamp = new Timestamp(date.getTime());
-			//Response response = client.newCall(request).execute();
 			System.out.println(response.body());
-			//Quote quote = toObjectFromJson(response.body().string(), Quote.class);
 			ObjectMapper m = new ObjectMapper();
-			JsonNode newNode = m.readTree(response.body());
-			JsonNode newestNode = newNode.get("Global Quote");
-        	Quote quote = m.convertValue(newestNode, Quote.class);
-			quote.setTimeStamp(timestamp);
+			JsonNode newNode = m.readTree(response.body()).get("Global Quote");
+			//JsonNode newestNode = newNode.get("Global Quote");
+        	Quote quote = m.convertValue(newNode, Quote.class);
+			quote.setTimestamp(timestamp);
+			//Testing
+			System.out.println(m.writeValueAsString(quote));
 			System.out.println(quote);
 			return quote;
 			
@@ -72,7 +72,8 @@ public class QuoteHttpHelper {
 
 	public static void main (String args[]) {
 		OkHttpClient client = new OkHttpClient();
-		QuoteHttpHelper helper = new QuoteHttpHelper("a5201af874msh748f3eaddf52167p1e3d1cjsn0c94890c25b4", client);
+		//TODO fill in value when testing
+		QuoteHttpHelper helper = new QuoteHttpHelper("FILL_IN_WHEN_TESTING", client);
 		Quote newQuote = helper.fetchQuoteInfo("MSFT");
 	}
 }

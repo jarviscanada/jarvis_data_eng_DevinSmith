@@ -2,7 +2,7 @@ package ca.jrvs.apps.stockquote.dao;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.util.Date;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -56,42 +56,42 @@ public class Quote {
 	}
 
 	@JsonProperty("02. open")
-	public String getOpen() {
-		return ticker;
+	public double getOpen() {
+		return open;
 	}
 
 	@JsonProperty("02. open")
-	public void setOpen(Double open) {
+	public void setOpen(double open) {
 		this.open = open;
 	}
 
 	@JsonProperty("03. high")
-	public Double getHigh() {
+	public double getHigh() {
 		return high;
 	}
 
 	@JsonProperty("03. high")
-	public void setHigh(Double high) {
+	public void setHigh(double high) {
 		this.high = high;
 	}
 
 	@JsonProperty("04. low")
-	public Double getLow() {
+	public double getLow() {
 		return low;
 	}
 
 	@JsonProperty("04. low")
-	public void setLow(Double low) {
+	public void setLow(double low) {
 		this.low = low;
 	}
 
 	@JsonProperty("05. price")
-	public Double getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
 	@JsonProperty("05. price")
-	public void setPrice(Double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -151,7 +151,13 @@ public class Quote {
 	}
 
 	@JsonProperty("12. timestamp")
-	public void setTimeStamp(Timestamp timestamp) {
+	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	@Override
+	public String toString() {
+		
+		return "Date:"+latestTradingDay+",timestamp:"+timestamp;
 	}
 }
