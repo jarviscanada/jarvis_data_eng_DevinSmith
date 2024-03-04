@@ -1,13 +1,16 @@
 package ca.jrvs.apps.stockquote.dao;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Connection;
 
 public class QuoteDao implements CrudDao<Quote, String> {
+
+    private Connection c;
+
     private static final String INSERT = "INSERT INTO quote (symbol, open, high, low, " +
      "price, volume, latest trading day, previous close, change, change percent, timestamp ) "+
      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -22,12 +25,13 @@ public class QuoteDao implements CrudDao<Quote, String> {
 
      private static final String DELETE_ALL = "DELETE FROM quote";
 
+
     @Override
     public Quote save(Quote entity) throws IllegalArgumentException {
         if (entity.getTicker() == null) {
             throw new IllegalArgumentException("Illegal Argument: Not a real Symbol");
         } else {
-            try(PreparedStatement statement = this.connection.prepareStatement(INSERT);) {
+            try(PreparedStatement statement = this.c.prepareStatement(INSERT);) {
                 statement.setString(1, entity.getTicker());
                 statement.setDouble(2, entity.getOpen());
                 statement.setDouble(3, entity.getHigh());
@@ -57,7 +61,7 @@ public class QuoteDao implements CrudDao<Quote, String> {
             throw new IllegalArgumentException("Illegal Arguement: ID is NULL");
         } else {
         Quote quote = new Quote();
-            try(PreparedStatement statement =  this.connection.prepareStatement(GET_ONE);) {
+            try(PreparedStatement statement =  this.c.prepareStatement(GET_ONE);) {
                 statement.setString(1,  id);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()){
@@ -82,12 +86,14 @@ public class QuoteDao implements CrudDao<Quote, String> {
         }
     }
 
-    //TODO 
+    //Creates a quote list, executes statement to pull all values from table
+    //then stores each element of the resulte set into an Arraylist and returns it
     @Override
     public Iterable<Quote> findAll() {
         Quote quote = new Quote();
-        try(PreparedStatement statement =  this.connection.prepareStatement(GET_ALL);) {
+        try(PreparedStatement statement =  this.c.prepareStatement(GET_ALL);) {
             ResultSet rs = statement.executeQuery();
+            ArrayList<Quote> quoteList = new ArrayList<Quote>();
             while (rs.next()){
                 quote.setTicker(rs.getString("symbol"));
                 quote.setOpen(rs.getDouble("open"));
@@ -100,18 +106,18 @@ public class QuoteDao implements CrudDao<Quote, String> {
                 quote.setChange(rs.getDouble("change"));
                 quote.setChangePercent(rs.getString("change percent"));
                 quote.setTimestamp(rs.getTimestamp("timestamp"));
+                quoteList.add(quote);
             }
+            return quoteList;
         } catch (SQLException e) {  
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        Optional<Quote> returnQuote = Optional.ofNullable(quote);
-        return returnQuote;
     }
 
     @Override
     public void deleteById(String id) throws IllegalArgumentException {
-        try(PreparedStatement statement = this.connection.prepareStatement(DELETE);) {
+        try(PreparedStatement statement = this.c.prepareStatement(DELETE);) {
             statement.setString(1, id);
             statement.execute();
         }catch (SQLException e) {
@@ -122,7 +128,7 @@ public class QuoteDao implements CrudDao<Quote, String> {
 
     @Override
     public void deleteAll() {
-        try(PreparedStatement statement = this.connection.prepareStatement(DELETE);) {
+        try(PreparedStatement statement = this.c.prepareStatement(DELETE_ALL);) {
             statement.execute();
         }catch (SQLException e) {
             e.printStackTrace();

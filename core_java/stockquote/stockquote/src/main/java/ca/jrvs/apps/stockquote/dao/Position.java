@@ -6,21 +6,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-	"ticker",
+	"symbol",
 	"numOfShares",
 	"valuePaid"
 })
 
 public class Position {
 
-	@JsonProperty("ticker")
+	@JsonProperty("symbol")
 	private String ticker; //id
 	@JsonProperty("numOfShares")
 	private int numOfShares;
 	@JsonProperty("valuePaid")
 	private double valuePaid; //total amount paid for shares
 
-	@JsonProperty("ticker")
+	@JsonProperty("symbol")
 	public String getTicker(){
 		return ticker;
 	}
