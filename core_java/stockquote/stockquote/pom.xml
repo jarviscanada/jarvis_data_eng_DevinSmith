@@ -39,7 +39,15 @@
 		  <artifactId>okhttp</artifactId>
 		  <version>5.0.0-alpha.11</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.7.1</version>
+    </dependency>
   </dependencies>
+
+
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

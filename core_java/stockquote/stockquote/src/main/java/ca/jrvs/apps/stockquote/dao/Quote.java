@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 public class Quote {
 
 	@JsonProperty("01. symbol")
-	private String ticker; //id
+	private String symbol; //id
 	@JsonProperty("02. open")
 	private double open;
 	@JsonProperty("03. high")
@@ -35,24 +35,24 @@ public class Quote {
 	@JsonProperty("06. volume")
 	private int volume;
 	@JsonProperty("07. latest trading day")
-	private Date latestTradingDay;
+	private Date latest_trading_day;
 	@JsonProperty("08. previous close")
-	private double previousClose;
+	private double previous_close;
 	@JsonProperty("09. change")
 	private double change;
 	@JsonProperty("10. change percent")
-	private String changePercent;
+	private String change_percent;
 	@JsonProperty("11. timestamp")
 	private Timestamp timestamp; //time when the info was pulled
 
 	@JsonProperty("01. symbol")
-	public String getTicker() {
-		return ticker;
+	public String getSymbol() {
+		return symbol;
 	}
 
 	@JsonProperty("01. symbol")
-	public void setTicker(String ticker) {
-		this.ticker = ticker;
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
 
 	@JsonProperty("02. open")
@@ -107,22 +107,22 @@ public class Quote {
 
 	@JsonProperty("07. latest trading day")
 	public Date getLatestTradingDay() {
-		return latestTradingDay;
+		return latest_trading_day;
 	}
 
 	@JsonProperty("07. latest trading day")
-	public void setLatestTradingDay(Date latestTradingDay) {
-		this.latestTradingDay = latestTradingDay;
+	public void setLatestTradingDay(Date latest_trading_day) {
+		this.latest_trading_day = latest_trading_day;
 	}
 
 	@JsonProperty("08. previous close")
 	public double getPreviousClose() {
-		return previousClose;
+		return previous_close;
 	}
 
 	@JsonProperty("08. previous close")
-	public void setPreviousClose(double previousClose) {
-		this.previousClose = previousClose;
+	public void setPreviousClose(double previous_close) {
+		this.previous_close = previous_close;
 	}
 
 	@JsonProperty("09. change")
@@ -137,12 +137,12 @@ public class Quote {
 	
 	@JsonProperty("10. change percent")
 	public String getChangePercent() {
-		return changePercent;
+		return change_percent;
 	}
 
 	@JsonProperty("10. change percent")
-	public void setChangePercent(String changePercent) {
-		this.changePercent = changePercent;
+	public void setChangePercent(String change_percent) {
+		this.change_percent = change_percent;
 	}
 
 	@JsonProperty("11. timestamp")
@@ -158,6 +158,6 @@ public class Quote {
 	@Override
 	public String toString() {
 		
-		return "Date:"+latestTradingDay+",timestamp:"+timestamp;
+		return "Date:"+latest_trading_day+",timestamp:"+timestamp;
 	}
 }

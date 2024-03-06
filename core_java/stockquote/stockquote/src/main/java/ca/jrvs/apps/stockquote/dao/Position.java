@@ -14,20 +14,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Position {
 
 	@JsonProperty("symbol")
-	private String ticker; //id
+	private String symbol; //id
 	@JsonProperty("numOfShares")
 	private int numOfShares;
 	@JsonProperty("valuePaid")
 	private double valuePaid; //total amount paid for shares
 
 	@JsonProperty("symbol")
-	public String getTicker(){
-		return ticker;
+	public String getSymbol(){
+		return symbol;
 	}
 
-	@JsonProperty("ticker")
-	public void setTicker(String ticker){
-		this.ticker = ticker;
+	@JsonProperty("symbol")
+	public void setSymbol(String symbol){
+		this.symbol = symbol;
 	}
 
 	@JsonProperty("numOfShares")

@@ -10,14 +10,14 @@ public class DatabaseConnectionManager {
     private final Properties properties;
 
     public DatabaseConnectionManager(String host, String databaseName,
-                                    String username, String password) {
-        this.url = "jbdc:postgresql://"+host+"/"+databaseName;
+                                    String username, String password) throws ClassNotFoundException {
+        this.url = "jdbc:postgresql://"+host+":5432/"+databaseName;
         this.properties = new Properties();
         this.properties.setProperty("user", username);
         this.properties.setProperty("password", password);
     }
 
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
         return DriverManager.getConnection(this.url, this.properties);
     }
     
