@@ -1,14 +1,16 @@
 package ca.jrvs.apps.stockquote.dao;
 
-import java.sql.SQLException;
 import java.util.Optional;
-
-import okhttp3.OkHttpClient;
 
 public class QuoteService {
 	
 	private QuoteDao dao;
 	private QuoteHttpHelper httpHelper;
+
+	public QuoteService(QuoteDao dao, QuoteHttpHelper httpHelper) {
+		this.dao = dao;
+		this.httpHelper = httpHelper;
+	}
 
 	/**
 	 * Fetches latest quote data from endpoint
@@ -16,22 +18,20 @@ public class QuoteService {
 	 * @return Latest quote information or empty optional if ticker symbol not found
 	 */
 	public Optional<Quote> fetchQuoteDataFromAPI(String ticker) {
-		//TO DO
-        OkHttpClient client = new OkHttpClient();
-        this.httpHelper = new QuoteHttpHelper("", client);
 		Quote quote = this.httpHelper.fetchQuoteInfo(ticker);
-		try {
-			DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager("localhost", "postgres",
-				 "postgres", "GresPassPost");
-			QuoteDao dao = new QuoteDao(databaseConnection.getConnection());
-			dao.save(quote);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(quote.getSymbol()== null) {
+			return Optional.empty();
 		}
-        Optional<Quote> optionalQuote = Optional.ofNullable(quote);
+		//System.out.println("THIS IS THE SYMBOL OF THE CURRENT TEST");
+		//System.out.println(quote.getSymbol());
+		dao.save(quote);
+	    Optional<Quote> optionalQuote = Optional.ofNullable(quote);
         return optionalQuote;
+	}
+
+	public int fetchVolume(String ticker) {
+		Quote quote = this.httpHelper.fetchQuoteInfo(ticker);
+		return quote.getVolume();
 	}
 
 }	

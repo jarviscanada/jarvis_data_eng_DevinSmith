@@ -73,7 +73,7 @@ public class QuoteHttpHelper {
 	public static void main (String args[]) {
 		OkHttpClient client = new OkHttpClient();
 		//TODO fill in value when testing
-		QuoteHttpHelper helper = new QuoteHttpHelper("FILL_IN_WHEN_TESTING", client);
+		QuoteHttpHelper helper = new QuoteHttpHelper("FILLER FOR APIKEY", client);
 		Quote newQuote = helper.fetchQuoteInfo("MSFT");
 	}
 }

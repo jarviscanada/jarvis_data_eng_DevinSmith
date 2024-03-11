@@ -7,17 +7,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
 	"symbol",
-	"numOfShares",
-	"valuePaid"
+	"number_of_shares",
+	"value_paid"
 })
 
 public class Position {
 
 	@JsonProperty("symbol")
 	private String symbol; //id
-	@JsonProperty("numOfShares")
+	@JsonProperty("number_of_shares")
 	private int numOfShares;
-	@JsonProperty("valuePaid")
+	@JsonProperty("value_paid")
 	private double valuePaid; //total amount paid for shares
 
 	@JsonProperty("symbol")
@@ -30,23 +30,23 @@ public class Position {
 		this.symbol = symbol;
 	}
 
-	@JsonProperty("numOfShares")
+	@JsonProperty("number_of_shares")
 	public int getNumOfShares() {
 		return numOfShares;
 	}
 
-	@JsonProperty("numOfShares")
+	@JsonProperty("number_of_shares")
 	public void setNumOfShares(int numOfShares) {
 		this.numOfShares = numOfShares;
 	}
 
 	
-	@JsonProperty("valuePaid")
+	@JsonProperty("value_paid")
 	public double getValuePaid() {
 		return valuePaid;
 	}
 
-	@JsonProperty("valuePaid")
+	@JsonProperty("value_paid")
 	public void setValuePaid(double valuePaid) {
 		this.valuePaid = valuePaid;
 	}

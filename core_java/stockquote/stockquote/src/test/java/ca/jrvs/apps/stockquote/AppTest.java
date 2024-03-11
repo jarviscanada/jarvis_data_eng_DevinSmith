@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sound.midi.SysexMessage;
+
 import org.junit.Before;
 import org.junit.Test;
 import java.sql.SQLException;
@@ -70,15 +72,26 @@ public class AppTest
     @Test 
     public void QuoteDao_Test() throws ClassNotFoundException {
         OkHttpClient client = new OkHttpClient();
-        QuoteHttpHelper helper = new QuoteHttpHelper("FILL_IN_WHEN_TESTING", client);
-        Quote testQuote = helper.fetchQuoteInfo("AMZN");
+        QuoteHttpHelper helper = new QuoteHttpHelper("FILLER FOR APIKEY", client);
+        Quote testQuote = helper.fetchQuoteInfo("BCE");
 
         DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager("localhost", "postgres", "postgres", "GresPassPost");
         try {
             QuoteDao dao = new QuoteDao(databaseConnection.getConnection());
             dao.save(testQuote);
-        Optional<Quote> testOption = dao.findById("AMZN");
+        Optional<Quote> testOption = dao.findById("BCE");
+        if (testOption.isEmpty()) {
+            System.out.println("FUCK OFF");
+        }
+        else {
+            System.out.println("This is what we are looking for");
+            System.out.println(testOption.get().getSymbol());
+        }
         Quote testConfirm = testOption.get();
+        System.out.println("This is the test check value");
+        System.out.println(testQuote.getSymbol());
+        System.out.println(testQuote.getVolume());
+    
 
         assertEquals(testQuote.getSymbol(), testConfirm.getSymbol());
         assertEquals(testQuote.getOpen(), testConfirm.getOpen(), 0.5);
@@ -120,29 +133,35 @@ public class AppTest
 
     @Test
     public void PositionDao_Test() throws ClassNotFoundException {
+
         Position testPosition = new Position();
         testPosition.setSymbol("MSFT");
         testPosition.setNumOfShares(25);
         testPosition.setValuePaid(85);
+
         Position testPosition2 = new Position();
         testPosition2.setSymbol("AMZN");
         testPosition2.setNumOfShares(40);
         testPosition2.setValuePaid(99);
+
         Position testPositionConfirm = new Position();
         Position testPositionConfirm2 = new Position();
+
         DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager("localhost", "postgres", "postgres", "GresPassPost");
-        System.out.println("This test does at least this right");
+
         try{
             System.out.println("First check NOTICE THIS");
             PositionDao testDao = new PositionDao(databaseConnection.getConnection());
             System.out.println("SECOND check NOTICE THIS");
-            testDao.deleteAll();
+            //testDao.deleteAll();
             testDao.save(testPosition);
             testDao.save(testPosition2);
             System.out.println("THIRD check NOTICE THIS");
             testPositionConfirm = testDao.findById("MSFT").get();
             testPositionConfirm2 = testDao.findById("AMZN").get();
-
+            System.out.println("CHECK THIS SID");
+            System.out.println(testPositionConfirm.getSymbol());
+            System.out.println(testPositionConfirm2.getSymbol());
             assertEquals(testPosition.getSymbol(), testPositionConfirm.getSymbol());
             assertEquals(testPosition.getNumOfShares(), testPositionConfirm.getNumOfShares());
             assertEquals(testPosition.getValuePaid(), testPositionConfirm.getValuePaid(), 0);
