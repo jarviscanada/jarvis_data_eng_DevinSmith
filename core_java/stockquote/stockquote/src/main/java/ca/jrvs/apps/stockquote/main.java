@@ -9,18 +9,15 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import ca.jrvs.apps.stockquote.dao.PositionDao;
-import ca.jrvs.apps.stockquote.dao.PositionService;
-import ca.jrvs.apps.stockquote.dao.QuoteDao;
-import ca.jrvs.apps.stockquote.dao.QuoteHttpHelper;
-import ca.jrvs.apps.stockquote.dao.QuoteService;
 import okhttp3.OkHttpClient;
-import ca.jrvs.apps.stockquote.dao;
+import java.sql.Connection;
+import ca.jrvs.apps.stockquote.dao.*;
+
 
 public class main {
     public static void main(String[] args) {		
 		Map<String, String> properties = new HashMap<>();
-		try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/properties.txt"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader("stockquote\\stockquote\\src\\main\\resources\\properties.txt"))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				String[] tokens = line.split(":");
@@ -45,7 +42,7 @@ public class main {
 			QuoteHttpHelper rcon = new QuoteHttpHelper(properties.get("api-key"), client);
 			QuoteService sQuote = new QuoteService(qRepo, rcon);
 			PositionService sPos = new PositionService(pRepo, sQuote);
-			StockQuoteController con = new StockQuoteController(sQuote, sPos);
+			StockQuoteController con = new StockQuoteController(sQuote, sPos, pRepo);
 			con.initClient();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -76,6 +76,7 @@ public class ServiceTest {
     
     @Test
     public void QuoteService_IntTest() {
+        System.out.println(System.getProperty("user.dir"));
 
         OkHttpClient client = new OkHttpClient();
 		QuoteHttpHelper helper = new QuoteHttpHelper("FILLER FOR APIKEY", client);
