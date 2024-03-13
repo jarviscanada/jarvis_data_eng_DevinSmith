@@ -2,15 +2,19 @@ package ca.jrvs.apps.stockquote.dao;
 
 import java.util.ArrayList;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.Date;
 
 public class QuoteDao implements CrudDao<Quote, String> {
 
     private Connection c;
+    private final Logger LOG = LoggerFactory.getLogger(QuoteDao.class);
 
     private static final String INSERT = "INSERT INTO quote (symbol, open, high, low, " +
      "price, volume, latest_trading_day, previous_close, change, change_percent, timestamp ) "+
@@ -40,8 +44,7 @@ public class QuoteDao implements CrudDao<Quote, String> {
         if (entity.getSymbol() == null) {
             throw new IllegalArgumentException("Illegal Argument: Not a real Symbol");
         } else {
-            if (findById(entity.getSymbol()).isPresent() /*  findById(entity.getSymbol()).get().getSymbol() == entity.getSymbol()*/) {
-                System.out.println("Are we updating when we shouldnt be?");
+            if (findById(entity.getSymbol()).isPresent()) {
                 try(PreparedStatement statement = this.c.prepareStatement(UPDATE);) {
                 statement.setString(1, entity.getSymbol());
                 statement.setDouble(2, entity.getOpen());
@@ -56,10 +59,16 @@ public class QuoteDao implements CrudDao<Quote, String> {
                 statement.setTimestamp(11, entity.getTimestamp());
                 statement.setString(12, entity.getSymbol());
                 statement.execute();
+                LOG.info("Updated quote @save: Symbol: "+entity.getSymbol()+" Open: "+entity.getOpen()+
+			    " High: "+entity.getHigh()+" Low: "+entity.getLow()+" Price: "+entity.getPrice()+" Volume: "+entity.getVolume()+
+			    " Latest Trading Day: "+entity.getLatestTradingDay()+" Previous Close: "+entity.getPreviousClose()+" Change: "+
+		    	entity.getChange()+" Change Percent :"+entity.getChangePercent()+" Timestamp: "+entity.getTimestamp()); 
                 return this.findById(entity.getSymbol()).orElseThrow(IllegalArgumentException::new);
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    //if (LOG.isDebugEnabled()) {
+			        LOG.error("SQLException: "+ e);
                     throw new RuntimeException(e);
+                    //}
                 }
             } else {
             try(PreparedStatement statement = this.c.prepareStatement(INSERT);) {
@@ -76,12 +85,14 @@ public class QuoteDao implements CrudDao<Quote, String> {
                 statement.setString(10, entity.getChangePercent());
                 statement.setTimestamp(11, entity.getTimestamp());
                 statement.execute();
-                //Optional<Quote> quoteCast = this.findById(entity.getTicker());
-                //return quoteCast.get();
+                LOG.info("Inserted quote @save: Symbol: "+entity.getSymbol()+" Open: "+entity.getOpen()+
+			    " High: "+entity.getHigh()+" Low: "+entity.getLow()+" Price: "+entity.getPrice()+" Volume: "+entity.getVolume()+
+			    " Latest Trading Day: "+entity.getLatestTradingDay()+" Previous Close: "+entity.getPreviousClose()+" Change: "+
+		    	entity.getChange()+" Change Percent :"+entity.getChangePercent()+" Timestamp: "+entity.getTimestamp()); 
                 return this.findById(entity.getSymbol()).orElseThrow(IllegalArgumentException::new);
 
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOG.error("SQLException: "+ e);
                 throw new RuntimeException(e);
                 }   
             }
@@ -96,13 +107,10 @@ public class QuoteDao implements CrudDao<Quote, String> {
             Quote quote = new Quote();
             try(PreparedStatement statement =  this.c.prepareStatement(GET_ONE);) {
                 statement.setString(1,  id);
-                System.out.println("IS THIS FINDBYID ELEMENT BEING RUN?");
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()){
                     quote.setSymbol(rs.getString("symbol"));
-                    System.out.println(rs.getString("symbol"));
                     quote.setOpen(rs.getDouble("open"));
-                    System.out.println(rs.getDouble("open"));
                     quote.setHigh(rs.getDouble("high"));
                     quote.setLow(rs.getDouble("low"));
                     quote.setPrice(rs.getDouble("price"));
@@ -113,22 +121,17 @@ public class QuoteDao implements CrudDao<Quote, String> {
                     quote.setChangePercent(rs.getString("change_percent"));
                     quote.setTimestamp(rs.getTimestamp("timestamp"));
                 }
-                //System.out.println("So this is whats going on");
-                //System.out.println(quote.getSymbol());
-                //System.out.println(quote.getSymbol().length());
-                //Something is wrong here
                 if (quote.getSymbol() == null) {
-                    System.out.println("Did not find the requested id in quote");
-                    System.out.println(id.length());
-                    System.out.println(id);
+                    LOG.warn("Failed to @findByID, returning empty optional");
                     return Optional.empty();
                 }
-                Optional optionTest = Optional.ofNullable(quote);
-                System.out.println("This is what the option returns currently");
-                System.out.println(optionTest.get());
+                LOG.info("Pulled quote @findByID: Symbol: "+quote.getSymbol()+" Open: "+quote.getOpen()+
+			    " High: "+quote.getHigh()+" Low: "+quote.getLow()+" Price: "+quote.getPrice()+" Volume: "+quote.getVolume()+
+			    " Latest Trading Day: "+quote.getLatestTradingDay()+" Previous Close: "+quote.getPreviousClose()+" Change: "+
+		    	quote.getChange()+" Change Percent :"+quote.getChangePercent()+" Timestamp: "+quote.getTimestamp()); 
                 return Optional.ofNullable(quote);
             } catch (SQLException e) {  
-                e.printStackTrace();
+                LOG.error("SQLException: "+ e);
                 throw new RuntimeException(e);
             }
         }
@@ -139,10 +142,8 @@ public class QuoteDao implements CrudDao<Quote, String> {
     @Override
     public Iterable<Quote> findAll() {
         Quote quote = new Quote();
-        //
         
         try(PreparedStatement statement =  this.c.prepareStatement(GET_ALL);) {
-            //this.c = databaseConnection.getConnection();
             ResultSet rs = statement.executeQuery();
             ArrayList<Quote> quoteList = new ArrayList<Quote>();
             while (rs.next()){
@@ -158,10 +159,15 @@ public class QuoteDao implements CrudDao<Quote, String> {
                 quote.setChangePercent(rs.getString("change_percent"));
                 quote.setTimestamp(rs.getTimestamp("timestamp"));
                 quoteList.add(quote);
+                LOG.info("Searched quote @findAll: Symbol: "+quote.getSymbol()+" Open: "+quote.getOpen()+
+			    " High: "+quote.getHigh()+" Low: "+quote.getLow()+" Price: "+quote.getPrice()+" Volume: "+quote.getVolume()+
+			    " Latest Trading Day: "+quote.getLatestTradingDay()+" Previous Close: "+quote.getPreviousClose()+" Change: "+
+		    	quote.getChange()+" Change Percent :"+quote.getChangePercent()+" Timestamp: "+quote.getTimestamp());
+                
             }
             return quoteList;
         } catch (SQLException e) {  
-            e.printStackTrace();
+            LOG.error("SQLException: "+ e);
             throw new RuntimeException(e);
         }
     }
@@ -171,8 +177,9 @@ public class QuoteDao implements CrudDao<Quote, String> {
         try(PreparedStatement statement = this.c.prepareStatement(DELETE);) {
             statement.setString(1, id);
             statement.execute();
+            LOG.info("Deleted quote @deleteById, Deleted Entry ID: "+id);
         }catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("SQLException: "+ e);
             throw new RuntimeException(e);
        }
     }
@@ -181,8 +188,9 @@ public class QuoteDao implements CrudDao<Quote, String> {
     public void deleteAll() {
         try(PreparedStatement statement = this.c.prepareStatement(DELETE_ALL);) {
             statement.execute();
+            LOG.info("Deleted all quotes in quote table @deleteAll");
         }catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("SQLException: "+ e);
             throw new RuntimeException(e);
        }
     }

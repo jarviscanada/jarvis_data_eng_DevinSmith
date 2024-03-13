@@ -1,7 +1,13 @@
-package ca.jrvs.apps.stockquote.dao;
+package ca.jrvs.apps.stockquote.controller;
 
 import java.util.Optional;
 import java.util.Scanner;
+
+import ca.jrvs.apps.stockquote.dao.Position;
+import ca.jrvs.apps.stockquote.dao.PositionDao;
+import ca.jrvs.apps.stockquote.dao.Quote;
+import ca.jrvs.apps.stockquote.service.PositionService;
+import ca.jrvs.apps.stockquote.service.QuoteService;
 
 public class StockQuoteController {
 
@@ -19,7 +25,7 @@ public class StockQuoteController {
 	 * User interface for our application
 	 */
 	public void initClient() {
-		//TO DO
+
 		Scanner scanner = new Scanner(System.in);
 		while(true){
 			System.out.println("Would you like to buy or sell? buy/sell or exit");

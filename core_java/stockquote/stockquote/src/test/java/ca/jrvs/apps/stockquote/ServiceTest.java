@@ -14,14 +14,13 @@ import org.mockito.Mockito;
 import ca.jrvs.apps.stockquote.dao.DatabaseConnectionManager;
 import ca.jrvs.apps.stockquote.dao.Position;
 import ca.jrvs.apps.stockquote.dao.PositionDao;
-import ca.jrvs.apps.stockquote.dao.PositionService;
 import ca.jrvs.apps.stockquote.dao.Quote;
 import ca.jrvs.apps.stockquote.dao.QuoteDao;
 import ca.jrvs.apps.stockquote.dao.QuoteHttpHelper;
-import ca.jrvs.apps.stockquote.dao.QuoteService;
+import ca.jrvs.apps.stockquote.service.PositionService;
+import ca.jrvs.apps.stockquote.service.QuoteService;
 import okhttp3.OkHttpClient;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 public class ServiceTest {
 

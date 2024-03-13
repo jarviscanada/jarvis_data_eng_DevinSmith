@@ -6,20 +6,21 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.sql.Timestamp;
-import java.sql.Date;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonParser;
 import okhttp3.*;
-import ca.jrvs.apps.stockquote.dao.Quote;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class QuoteHttpHelper {
 	
 	private String apiKey;
 	private OkHttpClient client;
+	private final Logger LOG = LoggerFactory.getLogger(QuoteHttpHelper.class);
 
 	public QuoteHttpHelper (String apiKey, OkHttpClient client) {
 		this.apiKey = apiKey;
@@ -44,12 +45,17 @@ public class QuoteHttpHelper {
 			java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
 			Timestamp timestamp = new Timestamp(date.getTime());
 			System.out.println(response.body());
+
 			ObjectMapper m = new ObjectMapper();
 			JsonNode newNode = m.readTree(response.body()).get("Global Quote");
-			//JsonNode newestNode = newNode.get("Global Quote");
         	Quote quote = m.convertValue(newNode, Quote.class);
 			quote.setTimestamp(timestamp);
-			//Testing
+			//if (LOG.isDebugEnabled()) {
+			LOG.info("Pulled quote @QuoteHttpHelper: Symbol: "+quote.getSymbol()+" Open: "+quote.getOpen()+
+			" High: "+quote.getHigh()+" Low: "+quote.getLow()+" Price: "+quote.getPrice()+" Volume: "+quote.getVolume()+
+			" Latest Trading Day: "+quote.getLatestTradingDay()+" Previous Close: "+quote.getPreviousClose()+" Change: "+
+			quote.getChange()+" Change Percent :"+quote.getChangePercent()+" Timestamp: "+quote.getTimestamp());
+			//}
 			System.out.println(m.writeValueAsString(quote));
 			System.out.println(quote);
 			return quote;
@@ -68,12 +74,5 @@ public class QuoteHttpHelper {
 			return null;
 		}
 		
-	}
-
-	public static void main (String args[]) {
-		OkHttpClient client = new OkHttpClient();
-		//TODO fill in value when testing
-		QuoteHttpHelper helper = new QuoteHttpHelper("FILLER FOR APIKEY", client);
-		Quote newQuote = helper.fetchQuoteInfo("MSFT");
 	}
 }
