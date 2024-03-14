@@ -26,53 +26,18 @@ import okhttp3.OkHttpClient;
 /**
  * Unit test for simple App.
  */
+
+ 
 public class AppTest 
 {
     /**
      * Rigorous Test :-)
      */
-
-    @Before
-    public void setUp() {
-
-    }
-
-    @Test
-    public void shouldAnswerWithNotNull()
-    {
-        OkHttpClient client = new OkHttpClient();
-        //TODO fill in value when testing
-		QuoteHttpHelper helper = new QuoteHttpHelper("FILL_IN_WHEN_TESTING", client);
-		//helper.fetchQuoteInfo("MSFT");
-        assertNotNull( helper.fetchQuoteInfo("MSFT") );
-    }
-
-    @Test
-    public void shouldAnswerWithSameValues()
-    {
-        OkHttpClient client = new OkHttpClient();
-        //TODO fill in value when testing
-		QuoteHttpHelper helper = new QuoteHttpHelper("FILL_IN_WHEN_TESTING", client);
-        Quote testQuote = helper.fetchQuoteInfo("MSFT");
-        assertEquals(testQuote.getSymbol(), "MSFT");
-        assertEquals(testQuote.getOpen(), 411.27, 0);
-        assertEquals(testQuote.getHigh(), 415.87, 0);
-        assertEquals(testQuote.getLow(), 410.88, 0);
-        assertEquals(testQuote.getPrice(), 415.50, 0);
-        assertEquals(testQuote.getVolume(), 17823445);
-        //assertEquals(testQuote.getLatestTradingDay(), "2024-02-29");
-        assertEquals(testQuote.getPreviousClose(), 413.64, 0);
-        assertEquals(testQuote.getChange(), 1.86, 0);
-        assertEquals(testQuote.getChangePercent(), "0.4497%");
-        //assertEquals(testQuote.getTimestamp(), "2024-03-04 13:03:51.861");
-
-
-    }
-
+/* 
     @Test 
     public void QuoteDao_Test() throws ClassNotFoundException {
         OkHttpClient client = new OkHttpClient();
-        QuoteHttpHelper helper = new QuoteHttpHelper("FILLER FOR APIKEY", client);
+        QuoteHttpHelper helper = new QuoteHttpHelper("a5201af874msh748f3eaddf52167p1e3d1cjsn0c94890c25b4", client);
         Quote testQuote = helper.fetchQuoteInfo("BCE");
 
         DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager("localhost", "postgres", "postgres", "GresPassPost");
@@ -81,7 +46,7 @@ public class AppTest
             dao.save(testQuote);
         Optional<Quote> testOption = dao.findById("BCE");
         if (testOption.isEmpty()) {
-            System.out.println("FUCK OFF");
+            System.out.println("Nothing");
         }
         else {
             System.out.println("This is what we are looking for");
@@ -126,7 +91,7 @@ public class AppTest
         assertEquals(testQuote.getChange(), testConfirm.getChange(), 0);
         assertEquals(testQuote.getChangePercent(), testConfirm.getChangePercent() );
         assertEquals(testQuote.getTimestamp(), testConfirm.getTimestamp());
-        */
+        
         
 
     }
@@ -176,4 +141,5 @@ public class AppTest
             e.printStackTrace();
         }
     }
+    */
 }

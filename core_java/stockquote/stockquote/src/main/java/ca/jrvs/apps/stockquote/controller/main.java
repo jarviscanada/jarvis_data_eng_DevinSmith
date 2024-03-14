@@ -20,18 +20,20 @@ import ca.jrvs.apps.stockquote.service.PositionService;
 import ca.jrvs.apps.stockquote.service.QuoteService;
 
 
-public class main {
-	static private final Logger LOG = LoggerFactory.getLogger(main.class);
+public class Main {
+	static private final Logger LOG = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {		
 		Map<String, String> properties = new HashMap<>();
-		try (BufferedReader br = new BufferedReader(new FileReader("stockquote\\stockquote\\src\\main\\resources\\properties.txt"))) {
+		//"C:\\Jarvis\\jarvis_data_eng_DevinSmith\\core_java\\stockquote\\stockquote\\src\\main\\resources\\properties.txt"
+		//"stockquote/stockquote/src/main/resources/properties.txt"
+		try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/properties.txt"))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				String[] tokens = line.split(":");
 				properties.put(tokens[0], tokens[1]);
 			}
 		} catch (FileNotFoundException e) {
-			LOG.error("FileNotGoundException: "+ e);
+			LOG.error("FileNotFoundException: "+ e);
 		} catch (IOException e) {
 			LOG.error("IOException: "+ e);
 		}

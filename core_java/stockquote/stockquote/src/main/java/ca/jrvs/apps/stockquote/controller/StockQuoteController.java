@@ -87,7 +87,7 @@ public class StockQuoteController {
 			System.out.println("Input stock symbol you would like to buy");
 			String idLikeToBuy = scanner.next();
 			Optional<Quote> optionalQuote = quoteService.fetchQuoteDataFromAPI(idLikeToBuy.toString());
-			if (optionalQuote.isEmpty()) {
+			if (!optionalQuote.isPresent()) {
 				System.out.println("Invalid symbol or connection issue");
 				System.out.println("Would you still like to buy? yes/no");
 				String stayOrGo = scanner.next();

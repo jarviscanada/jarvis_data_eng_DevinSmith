@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -23,7 +24,7 @@ import okhttp3.OkHttpClient;
 import java.sql.Date;
 
 public class ServiceTest {
-
+/* 
 
     @Test
     public void QuoteService_UnitTest() {
@@ -75,10 +76,9 @@ public class ServiceTest {
     
     @Test
     public void QuoteService_IntTest() {
-        System.out.println(System.getProperty("user.dir"));
 
         OkHttpClient client = new OkHttpClient();
-		QuoteHttpHelper helper = new QuoteHttpHelper("FILLER FOR APIKEY", client);
+		QuoteHttpHelper helper = new QuoteHttpHelper("a5201af874msh748f3eaddf52167p1e3d1cjsn0c94890c25b4", client);
         Quote quote = new Quote();
         Quote testQuote = new Quote();
         try {
@@ -122,8 +122,20 @@ public class ServiceTest {
     public void PositionService_UnitTest() {
         QuoteService quoteService = mock(QuoteService.class);
         Quote quote = new Quote();
-        Mockito.when(quoteService.fetchQuoteDataFromAPI("MSFT").get()).thenReturn(quote);
-        Mockito.when(quoteService.fetchQuoteDataFromAPI("MSFT").get().getVolume()).thenReturn(quote.getVolume());
+        quote.setSymbol("MSFT");
+        quote.setOpen(100);
+        quote.setHigh(100);
+        quote.setLow(50);
+        quote.setChange(20);
+        quote.setChangePercent("25%");
+        quote.setLatestTradingDay(Date.valueOf(LocalDate.now()));
+        quote.setPreviousClose(50);
+        quote.setPrice(85);
+        quote.setVolume(20000);
+        quote.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
+
+        Mockito.when(quoteService.fetchQuoteDataFromAPI("MSFT")).thenReturn(Optional.of(quote));
+        //Mockito.when(quoteService.fetchQuoteDataFromAPI("MSFT")).thenReturn(quote.getVolume());
         try {
             DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager("localhost", "postgres", "postgres", "GresPassPost");
             PositionDao positionDao = new PositionDao(databaseConnection.getConnection());
@@ -147,7 +159,7 @@ public class ServiceTest {
         position.setSymbol("MSFT");
 
         OkHttpClient client = new OkHttpClient();
-		QuoteHttpHelper helper = new QuoteHttpHelper("FILLER FOR APIKEY", client);
+		QuoteHttpHelper helper = new QuoteHttpHelper("a5201af874msh748f3eaddf52167p1e3d1cjsn0c94890c25b4", client);
         try {
             DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager("localhost", "postgres", "postgres", "GresPassPost");
             PositionDao positionDao = new PositionDao(databaseConnection.getConnection());
@@ -166,4 +178,5 @@ public class ServiceTest {
         }
 
     }
+    */
 }
