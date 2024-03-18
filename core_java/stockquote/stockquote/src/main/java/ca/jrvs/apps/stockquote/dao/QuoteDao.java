@@ -72,7 +72,6 @@ public class QuoteDao implements CrudDao<Quote, String> {
                 }
             } else {
             try(PreparedStatement statement = this.c.prepareStatement(INSERT);) {
-                System.out.println("Are we inserting new data?");
                 statement.setString(1, entity.getSymbol());
                 statement.setDouble(2, entity.getOpen());
                 statement.setDouble(3, entity.getHigh());

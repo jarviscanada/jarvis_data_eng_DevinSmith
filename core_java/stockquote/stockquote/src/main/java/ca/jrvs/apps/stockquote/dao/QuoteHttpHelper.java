@@ -44,20 +44,15 @@ public class QuoteHttpHelper {
 			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 			java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
 			Timestamp timestamp = new Timestamp(date.getTime());
-			System.out.println(response.body());
 
 			ObjectMapper m = new ObjectMapper();
 			JsonNode newNode = m.readTree(response.body()).get("Global Quote");
         	Quote quote = m.convertValue(newNode, Quote.class);
 			quote.setTimestamp(timestamp);
-			//if (LOG.isDebugEnabled()) {
 			LOG.info("Pulled quote @QuoteHttpHelper: Symbol: "+quote.getSymbol()+" Open: "+quote.getOpen()+
 			" High: "+quote.getHigh()+" Low: "+quote.getLow()+" Price: "+quote.getPrice()+" Volume: "+quote.getVolume()+
 			" Latest Trading Day: "+quote.getLatestTradingDay()+" Previous Close: "+quote.getPreviousClose()+" Change: "+
 			quote.getChange()+" Change Percent :"+quote.getChangePercent()+" Timestamp: "+quote.getTimestamp());
-			//}
-			System.out.println(m.writeValueAsString(quote));
-			System.out.println(quote);
 			return quote;
 			
 		} catch (InterruptedException e) {

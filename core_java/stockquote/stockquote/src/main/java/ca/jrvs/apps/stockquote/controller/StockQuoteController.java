@@ -63,7 +63,7 @@ public class StockQuoteController {
 						positionService.sell(whatImSelling);
 						System.out.println("You have successfully sold "+optionalPosition.get().getNumOfShares()+" shares at a price of "+sellingPrice);
 						System.out.println("Press enter to return to top level");
-						scanner.nextLine();
+						scanner.next();
 					}
 					break;
 				} else {
