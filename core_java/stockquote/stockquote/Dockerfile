@@ -1,9 +1,5 @@
-FROM openjdk:8-alpine
+FROM amazoncorretto:21-alpine3.19
 COPY target/stockquote-0.0.1-jar-with-dependencies.jar /usr/local/app/stockquote/stockquote.jar
-COPY src/main/resources/properties.txt /usr/local/app/stockquote/src/main/resources/properties.txt
-
-EXPOSE 5432
-WORKDIR "/usr/local/app/stockquote"
 
 ENTRYPOINT [ "java","-jar","/usr/local/app/stockquote/stockquote.jar"]
 
