@@ -15,12 +15,21 @@ ER diagram
 In this project, I created two DAO implementations. There is a java class called CrudDao that my PositionDao and my QuoteDao implement.
 These DAOs implement the four core functions of persistent storage. These are faciliatated by prepared statements handed to methods to inact them.
 
+
+`T save(T entity)`
+
 The save method allows the creation of a new entry into their tables, though if the primary key is already found it will instead update the entry.
 The QuoteDAO is also the class that accesses and pulls the data off of the API endpoint for insertion into the Quote table.
 The save method therefore implements CREATE and UPDATE. 
 
+`Optional<T> findById(String id)`
+
 The DAO's feature a findByID method, which checks the respective table based on the entry's 
 ID to see if there is an entry that matches the ID. This is the implementation of READ. 
+
+`Iterable<T> findAll()`
+
+`void deleteById(ID id)`
 
 Then there is a deleteByID and a deleteAll method for each DAO.
 These implement DELETE for the sql tables, deleting a single element by ID or deleting the entire tables contents, respectively. 
