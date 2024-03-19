@@ -24,12 +24,14 @@ The save method therefore implements CREATE and UPDATE.
 
 `Optional<T> findById(String id)`
 
-The DAO's feature a findByID method, which checks the respective table based on the entry's 
-ID to see if there is an entry that matches the ID. This is the implementation of READ. 
-
 `Iterable<T> findAll()`
 
+The DAO's feature a findByID method, which checks the respective table based on the entry's 
+ID to see if there is an entry that matches the ID. This is the implementation of READ. There is also findAll which returns everything in the table.
+
 `void deleteById(ID id)`
+
+`void deleteAll()`
 
 Then there is a deleteByID and a deleteAll method for each DAO.
 These implement DELETE for the sql tables, deleting a single element by ID or deleting the entire tables contents, respectively. 
