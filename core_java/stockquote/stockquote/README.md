@@ -9,7 +9,7 @@ and the other used to store positions the user has bought into. Furthermore it i
 
 # Implementaiton
 ## ER Diagram
-ER diagram
+![image](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/assets/66887499/a09c2444-f0f8-42b9-b865-192349abaa75)
 
 ## Design Patterns
 In this project, I created two DAO implementations. There is a java class called CrudDao that my PositionDao and my QuoteDao implement.
