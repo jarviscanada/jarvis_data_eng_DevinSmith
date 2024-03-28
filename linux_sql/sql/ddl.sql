@@ -14,7 +14,7 @@
           );
 
      CREATE TABLE IF NOT EXISTS PUBLIC.host_usage (
-         "timestamp"        TIMESTAMPE NOT NULL,
+         "timestamp"        TIMESTAMP NOT NULL,
          host_id            SERIAL NOT NULL,
          memory_free        INT4 NOT NULL,
          cpu_idle           INT2 NOT NULL,
