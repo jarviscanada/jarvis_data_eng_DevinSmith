@@ -1,0 +1,7 @@
+db-class:org.postgresql.Driver
+server:host.docker.internal
+database:postgres
+port:5432
+username:postgres
+password:GresPassPost
+api-key:#INSERT_YOUR_APIKEY_HERE"

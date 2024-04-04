@@ -19,8 +19,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
 
 **Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/core_java)]:
       
-  - Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam.
-  - JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam.
+  - Twitter App: This project is no longer part of the Jarvis training course, but removing this statement breaks the yaml code.
+  - JDBC App: The JBDC app is a java app built with maven and designed to emulate a stock trade wallet with the ability to check stocks and emulate buying and selling them. It connects with an API endpoint using the OKHTTP library, and collects stock quote data. It is parsed using the Jackson databind library and the data is stored in a Postgresql server. It is dockerized for deployment ease, and features a text based user interface.
   - Grep App: The grep app is designed to emulate the grep command line utility. It was built in java, written through VSCode and then dockerized for easy deployment.
 
 **Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/springboot)]: Not Started
@@ -57,4 +57,4 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
 - Winner
 - Basketball player
 - Competitive gaming
-- Volunteer, ABC Food bank: Ut enim ad minim veniam
+- Previously volunteered with Cumberland Youth Intervention Program
