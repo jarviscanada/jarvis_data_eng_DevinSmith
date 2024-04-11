@@ -8,11 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MarketDataDao extends JpaRepository<IexQuoteDom, String> {
+public interface MarketDataDao extends JpaRepository<IexQuote, String> {
 
-    Optional<IexQuoteDom> findById(String ticker);
+    Optional<IexQuote> findById(String ticker);
 
-    List<IexQuoteDom> findAllById(Iterable<String> tickers);
+    List<IexQuote> findAllById(Iterable<String> tickers);
 
     Optional<String> executeHttpGet(String url);
 
@@ -20,20 +20,20 @@ public interface MarketDataDao extends JpaRepository<IexQuoteDom, String> {
 
     boolean existsById(String s);
 
-    List<IexQuoteDom> findAll();
+    List<IexQuote> findAll();
 
     long count();
 
     void deleteById(String s);
 
-    void delete(IexQuoteDom entity);
+    void delete(IexQuote entity);
 
-    void deleteAll(Iterable<? extends IexQuoteDom> entities);
+    void deleteAll(Iterable<? extends IexQuote> entities);
 
     void deleteAll();
 
-    IexQuoteDom save(IexQuoteDom entity);
+    IexQuote save(IexQuote entity);
 
-    List<IexQuoteDom> saveAll(List<IexQuoteDom> entities);
+    List<IexQuote> saveAll(List<IexQuote> entities);
 
 }

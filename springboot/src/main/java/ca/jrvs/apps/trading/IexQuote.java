@@ -73,7 +73,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * https://iexcloud.io/docs/api/#quote
  */
 @Generated("jsonschema2pojo")
-public class IexQuoteDom  {
+public class IexQuote  {
 
 @JsonProperty("symbol")
 private String symbol;

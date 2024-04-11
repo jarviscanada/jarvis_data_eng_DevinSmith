@@ -13,6 +13,7 @@ public class QuoteService {
 	 */
 	public IexQuote findIexQuoteByTicker(String ticker) {
 		//TODO
+		return new IexQuote();
 	}
 
 }
