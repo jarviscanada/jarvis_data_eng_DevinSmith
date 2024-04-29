@@ -1,39 +1,63 @@
 package ca.jrvs.apps.trading;
 
+import java.io.IOException;
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
-import org.apache.http.client.HttpClient;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface MarketDataDao extends JpaRepository<IexQuote, String> {
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-    Optional<IexQuote> findById(String ticker);
+import okhttp3.*;
 
-    List<IexQuote> findAllById(Iterable<String> tickers);
+@Component
+public class MarketDataDao {
 
-    Optional<String> executeHttpGet(String url);
+    private static final String ApiURL = "https://cloud.iexapis.com/stable/stock/";
+    //private final OkHttpClient client;
+    private String apiKey;
 
-    HttpClient getHttpClient();
+    public MarketDataDao(/*OkHttpClient client,*/ String apikey) {
+        this.apiKey = apikey;
+        //this.client = client;
+    }
 
-    boolean existsById(String s);
-
-    List<IexQuote> findAll();
-
-    long count();
-
-    void deleteById(String s);
-
-    void delete(IexQuote entity);
-
-    void deleteAll(Iterable<? extends IexQuote> entities);
-
-    void deleteAll();
-
-    IexQuote save(IexQuote entity);
-
-    List<IexQuote> saveAll(List<IexQuote> entities);
-
+    public List<IexQuote> getIexQuote(List<String> symbols) {
+        List<IexQuote> returnableIexQuotes = new ArrayList<IexQuote>();
+        for(String symbol : symbols) {
+           HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(ApiURL + symbol + "/quote?token=" + apiKey))
+            .build();
+            try{
+                HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+                ObjectMapper m = new ObjectMapper();
+                JsonNode newNode = m.readTree(response.body()).get("Global Quote");
+                IexQuote iexQuote = m.convertValue(newNode, IexQuote.class);
+                returnableIexQuotes.add(iexQuote);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                return null;
+            } catch (JsonMappingException e) {
+			    e.printStackTrace();
+			    return null;
+		    } catch (JsonProcessingException e) {
+			    e.printStackTrace();
+			    return null;
+		    } catch (IOException e) {
+			    e.printStackTrace();
+			    return null;
+		    }
+        }
+        return returnableIexQuotes;
+    }
 }
