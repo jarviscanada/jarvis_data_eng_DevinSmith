@@ -51,7 +51,7 @@ cat /tmp/host_usage.log
 These are the steps that were taken in implementing this project
 ### 1. The first step in implementing the project is establishing a github repo for code management
 Once the repo is established we can make a development branch, and furthermore the appropriate feature branches.
-### 2. The second step is getting a basic Docker undestanding a creating a container
+### 2. The second step is creating a docker container
 The containerization allows us to work with the psql in an enclosed environment
 ### 3. The third step is is to initializing a database inside the container and establishing the tables host_info and host usage
 The correct data types for each of the fields in the table allow us to confirm the correct data is being input.
