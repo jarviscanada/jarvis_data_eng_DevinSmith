@@ -23,16 +23,6 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
   - JDBC App: The JBDC app is a java app built with maven and designed to emulate a stock trade wallet with the ability to check stocks and emulate buying and selling them. It connects with an API endpoint using the OKHTTP library, and collects stock quote data. It is parsed using the Jackson databind library and the data is stored in a Postgresql server. It is dockerized for deployment ease, and features a text based user interface.
   - Grep App: The grep app is designed to emulate the grep command line utility. It was built in java, written through VSCode and then dockerized for easy deployment.
 
-**Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/springboot)]: Not Started
-
-**Python Data Analytics** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/python_data_anlytics)]: Not Started
-
-**Hadoop** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/hadoop)]: Not Started
-
-**Spark** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/spark)]: Not Started
-
-**Cloud/DevOps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/cloud_devops)]: Not Started
-
 
 ## Highlighted Projects
 **Communication Subsystem for the Killick-1 Satallite** [[GitHub](https://github.com/jarviscanada/jarvis_profile_builder)]: Assisted in the development of the communications subsystem on the Killick-1 sea ice measurement satellite, using C.
