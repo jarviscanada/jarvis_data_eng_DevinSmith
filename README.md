@@ -43,6 +43,6 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
 
 
 ## Miscellaneous
-- Basketball player
-- Competitive gaming
-- Previously volunteered with Cumberland Youth Intervention Program
+- Chess and other strategy games hobbyist
+- Build and and paint model kits
+- Volunteered with Cumberland Youth Intervention Program
