@@ -43,8 +43,6 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
 
 
 ## Miscellaneous
-- List of items
-- Winner
 - Basketball player
 - Competitive gaming
 - Previously volunteered with Cumberland Youth Intervention Program
