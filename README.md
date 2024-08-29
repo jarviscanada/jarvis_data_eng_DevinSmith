@@ -19,9 +19,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
 
 **Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_DevinSmith/tree/master/core_java)]:
       
-  - Twitter App: This project is no longer part of the Jarvis training course, but removing this statement breaks the yaml code.
   - JDBC App: The JBDC app is a java app built with maven and designed to emulate a stock trade wallet with the ability to check stocks and emulate buying and selling them. It connects with an API endpoint using the OKHTTP library, and collects stock quote data. It is parsed using the Jackson databind library and the data is stored in a Postgresql server. It is dockerized for deployment ease, and features a text based user interface.
-  - Grep App: The grep app is designed to emulate the grep command line utility. It was built in java, written through VSCode and then dockerized for easy deployment.
+  - Grep App: In this project, the goal was to develop an app that operates similar to the grep command line utility using core java. This means that it takes in some text and searches a file or files and checks the text to see if there are instances of that text within the referenced file. This project used core java, and the following libraries; java.util for List, ArrayList and regex.Pattern, java.io for FileWriter, FileReader, BufferedReader, BufferedWriter and IOException. It also used org.slf4j for Logger and LoggerFactory. Maven was used to compile the project and to pull the libraries, and it was written within VSCode. It was then made into a Docker image for deployment.
 
 
 ## Highlighted Projects
@@ -29,6 +28,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
 
 
 ## Professional Experiences
+
+**Fullstack Developer/R&D, Avazz (2023-present)**: Developed a frontend for an AI chat app, trained an LLM model, deployed it on a cloud solution
 
 **Software Developer, Jarvis (2023-present)**: Developed an app for measuring resource usage by nodes in a Linux Cluster using Docker, PostgreSQL, and Bash commands. Working on a SQL project currently.
 
