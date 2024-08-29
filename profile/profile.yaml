@@ -68,7 +68,7 @@ highlighted_projects:
 professional_experience:
   - title: "Fullstack Developer/R&D"
     company: "Avazz"
-    duration: "2023-present"
+    duration: "2024-present"
     description: "Developed a frontend for an AI chat app, trained an LLM model, deployed it on a cloud solution"
   #Write your Jarvis role as a professional experience rather than training.
   - title: "Software Developer"

@@ -29,7 +29,7 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
 
 ## Professional Experiences
 
-**Fullstack Developer/R&D, Avazz (2023-present)**: Developed a frontend for an AI chat app, trained an LLM model, deployed it on a cloud solution
+**Fullstack Developer/R&D, Avazz (2024-present)**: Developed a frontend for an AI chat app, trained an LLM model, deployed it on a cloud solution
 
 **Software Developer, Jarvis (2023-present)**: Developed an app for measuring resource usage by nodes in a Linux Cluster using Docker, PostgreSQL, and Bash commands. Working on a SQL project currently.
 
