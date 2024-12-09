@@ -47,7 +47,7 @@
   "professional_experience": [
     {
       "company": "Avazz",
-      "description": "Developed a frontend for an AI chat app, trained an LLM model, deployed it on a cloud solution",
+      "description": "Developed a frontend for an AI chat app using next.js, built its backend infrastructure with python, created api endpoints to allow it to chat with an AI agent chain running through langgraph, and deployed it on AWS",
       "duration": "2024-present",
       "title": "Fullstack Developer/R\u0026D"
     },
@@ -74,7 +74,7 @@
     "competent": [
       "RDBMS/SQL",
       "C/C++",
-      "VHDL",
+      "React/Next.js",
       "Angular",
       "Docker"
     ],

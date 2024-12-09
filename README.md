@@ -6,7 +6,7 @@ Greetings, my name is Devin Smith and I am a recent graduate from Memorial Unive
 
 **Proficient:** Java, Python, Linux/Bash, Agile/Scrum, Git
 
-**Competent:** RDBMS/SQL, C/C++, VHDL, Angular, Docker
+**Competent:** RDBMS/SQL, C/C++, React/Next.js, Angular, Docker
 
 **Familiar:** Springboot, MacOS, Windows, Javascript, ferm
 
@@ -29,7 +29,7 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_DevinSmith
 
 ## Professional Experiences
 
-**Fullstack Developer/R&D, Avazz (2024-present)**: Developed a frontend for an AI chat app, trained an LLM model, deployed it on a cloud solution
+**Fullstack Developer/R&D, Avazz (2024-present)**: Developed a frontend for an AI chat app using next.js, built its backend infrastructure with python, created api endpoints to allow it to chat with an AI agent chain running through langgraph, and deployed it on AWS
 
 **Software Developer, Jarvis (2023-present)**: Developed an app for measuring resource usage by nodes in a Linux Cluster using Docker, PostgreSQL, and Bash commands. Working on a SQL project currently.
 
